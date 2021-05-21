@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import ActionFormater from "../../../component/alert/actionFormaterProduct";
+
 const CreateTableData = () => {
   // const NumberFormater = (value) => <span>{value}</span>;
   const { vendors } = useSelector((state) => state.vendor);
@@ -30,6 +32,13 @@ const CreateTableData = () => {
         accessor: "address",
       },
       { Header: "product count", accessor: "productCount" },
+      {
+        Header: "Action",
+        accessor: "action",
+        disableGlobalFilter: true,
+        disableSortBy: true,
+        width: 110,
+      },
       { Header: "Created At", accessor: "createdAt" },
     ],
     []
@@ -48,6 +57,7 @@ const CreateTableData = () => {
 
         productCount: e.products.length.toString(),
         createdAt: moment(e.createdAt).format("DD-MM-YYYY"),
+        action: [ActionFormater(() => () => {}, "ad", 2)],
       });
       id++;
     });
