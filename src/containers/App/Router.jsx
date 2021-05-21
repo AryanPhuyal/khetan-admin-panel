@@ -1,0 +1,63 @@
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Layout from "../Layout/index";
+import MainWrapper from "./MainWrapper";
+import LogIn from "../LogIn/index";
+import { useSelector } from "react-redux";
+import Products from "../../screens/products/products";
+import Categories from "../../screens/category/categories";
+import AddCategory from "../../screens/category/addCategory";
+
+import Orders from "../../screens/orders/orders";
+import Vendors from "../../screens/vendors/Vendors";
+import AddProduct from "../../screens/addProduct";
+import Users from "../../screens/users/users";
+import Enquary from "../../screens/enquary/Enquary";
+import Logout from "../../screens/logout/logout";
+
+const Pages = () => (
+  <Switch>
+    {/* <Route path="/pages/one" component={ExamplePageOne} /> */}
+    {/* <Route path="/pages/two" component={ExamplePageTwo} /> */}
+  </Switch>
+);
+
+const wrappedRoutes = () => (
+  <div>
+    <Layout />
+    <div className="container__wrap">
+      <Route path="/" component={Pages} />
+      <Route path="/products/list" component={Products} />
+      <Route path="/products/add" component={AddProduct} />
+
+      <Route path="/categories/list" component={Categories} />
+      <Route path="/categories/add" component={AddCategory} />
+
+      <Route path="/orders" component={Orders} />
+      <Route path="/vendors/list" component={Vendors} />
+
+      <Route path="/users/list" component={Users} />
+      <Route path="/enquary/list" component={Enquary} />
+      <Route path="/logout" component={Logout} />
+    </div>
+  </div>
+);
+
+const Router = () => {
+  const { loggedIn } = useSelector((state) => state.user);
+  return (
+    <MainWrapper>
+      <main>
+        <Switch>
+          {!loggedIn ? (
+            <Route exact path="/" component={LogIn} />
+          ) : (
+            <Route path="/" component={wrappedRoutes} />
+          )}
+        </Switch>
+      </main>
+    </MainWrapper>
+  );
+};
+
+export default Router;
