@@ -12,3 +12,16 @@ export const suspendProductApi = (prodId) =>
 export const approveProductApi = (prodId) =>
   `${baseUrlApi}/admin/product/${prodId}/approve`;
 export const listEnquaryList = `${baseUrlApi}/admin/product-enquiry/list`;
+
+export const suspendVendorApi = (vendorId) =>
+  `${baseUrlApi}/admin/vendor/${vendorId}/account/suspend`;
+
+export const approveVendorApi = (vendorId) =>
+  `${baseUrlApi}/admin/vendor/${vendorId}/account/approve`;
+
+export const orderDescriptionApi = (orderId) =>
+  `${baseUrlApi}/admin/order/${orderId}/detail`;
+// category
+export const addMainCategoryApi = `${baseUrlApi}/admin/category/main/create`;
+export const addSubCategoryApi = `${baseUrlApi}/admin/category/sub/create`;
+export const addChildCategoryApi = `${baseUrlApi}/admin/category/child/create`;

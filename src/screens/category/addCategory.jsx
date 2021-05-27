@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Col, Container, Row, Card, CardBody, CardHeader } from "reactstrap";
-import CreateTableData from "./component/createData";
+import { Col, Container, Row, Card, CardBody } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategory } from "../../redux/actions/category";
 import AddMainCategory from "./component/addMainCategory";
@@ -14,11 +13,10 @@ const AddCategorie = () => {
   const { loading, listCategory, error } = useSelector(
     (state) => state.category
   );
-  let reactTableData = CreateTableData();
   const dispatch = useDispatch();
   useEffect(() => {
     if (!listCategory) dispatch(fetchCategory(token));
-  }, []);
+  }, [dispatch, listCategory, token]);
   return (
     <Container>
       <Row>

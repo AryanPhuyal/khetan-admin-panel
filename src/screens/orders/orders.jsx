@@ -4,6 +4,7 @@ import DataReactTable from "../../component/table/tableBase";
 import CreateTableData from "./component/createData";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOrder } from "../../redux/actions/order";
+import ReactLoading from "react-loading";
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const Orders = () => {
       </Row>
       <Row>
         {loading ? (
-          <p>loading...</p>
+          <ReactLoading type={"bubbles"} color={"black"} />
         ) : error ? (
           <p>{error}</p>
         ) : (

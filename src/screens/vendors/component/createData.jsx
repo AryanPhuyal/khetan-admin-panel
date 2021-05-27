@@ -1,11 +1,49 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import ActionFormater from "../../../component/alert/actionFormaterProduct";
+import StatusFormatter from "../../../component/alert/statusFormater";
+import { suspendVendor } from "../../../redux/actions/vendors";
+import { authGet } from "../../../utility/request";
+import { approveVendorApi, suspendVendorApi } from "../../../utility/api";
 
 const CreateTableData = () => {
-  // const NumberFormater = (value) => <span>{value}</span>;
+  const dispatch = useDispatch();
+
+  const {
+    user: { token },
+  } = useSelector((state) => state.user);
+
+  const unSuspend = async (vendorId) => {
+    try {
+      const response = await authGet(approveVendorApi(vendorId), token);
+      if (response.data.success) {
+        dispatch(suspendVendor(vendorId, 1));
+      } else {
+      }
+    } catch (err) {}
+  };
+  const suspend = async (vendorId) => {
+    try {
+      const response = await authGet(suspendVendorApi(vendorId), token);
+      if (response.data.success) {
+        dispatch(suspendVendor(vendorId, 2));
+      } else {
+      }
+    } catch (err) {}
+  };
+
   const { vendors } = useSelector((state) => state.vendor);
+  const clickAction = (vendorId) => {
+    const vendor = vendors.find((e) => e._id === vendorId);
+    if (vendor.accountStatus === 2) {
+      suspend(vendorId);
+    } else {
+      unSuspend(vendorId);
+    }
+  };
+
+  // const NumberFormater = (value) => <span>{value}</span>;
   const columns = useMemo(
     () => [
       {
@@ -33,6 +71,13 @@ const CreateTableData = () => {
       },
       { Header: "product count", accessor: "productCount" },
       {
+        Header: "Status",
+        accessor: "status",
+        formatter: StatusFormatter,
+        disableGlobalFilter: true,
+        disableSortBy: true,
+      },
+      {
         Header: "Action",
         accessor: "action",
         disableGlobalFilter: true,
@@ -54,10 +99,16 @@ const CreateTableData = () => {
         address: e.profileDetails.address,
         name: e.profileDetails.name,
         phone: e.profileDetails.phone,
-
+        status: StatusFormatter(e.accountStatus),
+        action: [
+          ActionFormater(
+            () => clickAction(e._id),
+            `/vendors?vendorId=${e._id}`,
+            e.accountStatus
+          ),
+        ],
         productCount: e.products.length.toString(),
         createdAt: moment(e.createdAt).format("DD-MM-YYYY"),
-        action: [ActionFormater(() => () => {}, "ad", 2)],
       });
       id++;
     });

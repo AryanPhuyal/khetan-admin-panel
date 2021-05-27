@@ -12,3 +12,11 @@ export const authGet = (api, token) => {
     },
   });
 };
+
+export const authPost = (api, data, token) => {
+  return axios.post(api, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

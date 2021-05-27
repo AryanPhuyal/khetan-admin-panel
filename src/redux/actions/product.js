@@ -46,3 +46,7 @@ export const approveProduct = (productId, type) => {
     payload: productId,
   };
 };
+
+export const productDetails = (productId, token) => {
+  return authGet();
+};

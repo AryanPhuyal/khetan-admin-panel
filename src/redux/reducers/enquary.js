@@ -13,12 +13,10 @@ const init = {
 };
 
 const reducer = (state = init, action) => {
-  console.log(action);
   switch (action.type) {
     case ENQUARY_LIST_START:
       return updateObject(state, { loading: true, enquaryList: true });
     case ENQUARY_LIST_SUCCESS:
-      console.log("I am here");
       return updateObject(state, { loading: false, enquaries: action.payload });
     case ENQUARY_LIST_FAIL:
       return updateObject(state, {

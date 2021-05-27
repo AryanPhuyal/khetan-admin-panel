@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { Link } from "react-router-dom";
 const CreateTableData = () => {
   // const NumberFormater = (value) => <span>{value}</span>;
   const { orders } = useSelector((state) => state.order);
@@ -31,6 +32,13 @@ const CreateTableData = () => {
       { Header: "Total Cost", accessor: "totalCost" },
       { Header: "User", accessor: "user" },
       { Header: "Order Date", accessor: "orderDate" },
+      {
+        Header: "Action",
+        accessor: "action",
+        disableGlobalFilter: true,
+        disableSortBy: true,
+        width: 110,
+      },
     ],
     []
   );
@@ -50,6 +58,14 @@ const CreateTableData = () => {
         totalCost: e.totalCost.toString(),
         user: e.user,
         orderDate: moment(e.orderedData).format("DD-MM-YYYY"),
+        action: (
+          <Link
+            to={`/orders/order-details?order_id=${e.orderId}`}
+            className="btn btn-outline-primary btn-sm"
+          >
+            <span className="lnr lnr-eye"></span>
+          </Link>
+        ),
       });
       id++;
     });

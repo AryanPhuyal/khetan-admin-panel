@@ -6,8 +6,7 @@ import {
   baseUrl,
   suspendProductApi,
 } from "../../../utility/api";
-import StatusFormatter from "../../../component/alert/statusFormater";
-import ActionFormater from "../../../component/alert/actionFormaterProduct";
+
 import { authGet } from "../../../utility/request";
 import { approveProduct } from "../../../redux/actions/product";
 
@@ -20,43 +19,34 @@ const CreateTableData = () => {
     user: { token },
   } = useSelector((state) => state.user);
 
-  // const unSuspend = async (produId) => {
-  //   setactionChange({
-  //     loading: true,
-  //     prodId: produId,
-  //   });
-  //   try {
-  //     const response = await authGet(approveProductApi(produId), token);
-  //     if (response.data.success) {
-  //       dispatch(approveProduct(produId, 1));
-  //     } else {
-  //       dispatch(approveProduct(produId, 2));
-  //     }
-  //   } catch (err) {
-  //     dispatch(approveProduct(produId, 2));
-  //   }
-  // };
-  // const suspend = async (produId) => {
-  //   setactionChange({
-  //     loading: true,
-  //     prodId: produId,
-  //   });
-  //   try {
-  //     const response = await authGet(suspendProductApi(produId), token);
-  //     if (response.data.success) {
-  //     } else {
-  //     }
-  //   } catch (err) {}
-  // };
-
-  // const clickAction = (produId) => {
-  //   const product = products.find((e) => e._id === produId);
-  //   if (product.status === 2) {
-  //     suspend(produId);
-  //   } else {
-  //     unSuspend(produId);
-  //   }
-  // };
+  const unSuspend = async (produId) => {
+    setactionChange({
+      loading: true,
+      prodId: produId,
+    });
+    try {
+      const response = await authGet(approveProductApi(produId), token);
+      if (response.data.success) {
+        dispatch(approveProduct(produId, 1));
+      } else {
+        dispatch(approveProduct(produId, 2));
+      }
+    } catch (err) {
+      dispatch(approveProduct(produId, 2));
+    }
+  };
+  const suspend = async (produId) => {
+    setactionChange({
+      loading: true,
+      prodId: produId,
+    });
+    try {
+      const response = await authGet(suspendProductApi(produId), token);
+      if (response.data.success) {
+      } else {
+      }
+    } catch (err) {}
+  };
 
   const columns = useMemo(
     () => [
@@ -69,8 +59,6 @@ const CreateTableData = () => {
       {
         Header: "First Name",
         accessor: "firstname",
-        disableGlobalFilter: true,
-        disableSortBy: true,
       },
       {
         Header: "Last Name",

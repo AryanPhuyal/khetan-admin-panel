@@ -4,6 +4,7 @@ import DataReactTable from "../../component/table/tableBase";
 import CreateTableData from "./component/createData";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUsers } from "../../redux/actions/users";
+import ReactLoading from "react-loading";
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const Users = () => {
       </Row>
       <Row>
         {loading ? (
-          <p>loading...</p>
+          <ReactLoading type={"bubbles"} color={"black"} />
         ) : error ? (
           <p>{error}</p>
         ) : (

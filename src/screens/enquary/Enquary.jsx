@@ -4,7 +4,7 @@ import DataReactTable from "../../component/table/tableBase";
 import CreateTableData from "./component/createData";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchEnquaryList } from "../../redux/actions/enquary";
-
+import ReactLoading from "react-loading";
 const Enquary = () => {
   const dispatch = useDispatch();
   const {
@@ -27,7 +27,7 @@ const Enquary = () => {
       </Row>
       <Row>
         {loading ? (
-          <p>loading...</p>
+          <ReactLoading type={"bubbles"} color={"black"} />
         ) : error ? (
           <p>{error}</p>
         ) : (

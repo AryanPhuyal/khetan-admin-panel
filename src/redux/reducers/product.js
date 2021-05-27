@@ -18,9 +18,10 @@ const approveProduct = (state, action) => {
   const newProducts = [...state.products];
   const newProduct = newProducts.find((e) => e._id === action.payload);
   if (action.type === SUSPEND_PRODUCT) {
+    alert("Here");
     newProduct.status = 2;
   } else {
-    newProduct.status = 1;
+    newProduct.status = 3;
   }
   return updateObject(state, { products: newProducts });
 };

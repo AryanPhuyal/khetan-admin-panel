@@ -4,6 +4,7 @@ import DataReactTable from "../../component/table/tableBase";
 import CreateTableData from "./component/createData";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategory } from "../../redux/actions/category";
+import ReactLoading from "react-loading";
 const Categories = () => {
   const {
     user: { token },
@@ -16,7 +17,7 @@ const Categories = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCategory(token));
-  }, []);
+  }, [dispatch, token]);
   return (
     <Container>
       <Row>
@@ -31,7 +32,7 @@ const Categories = () => {
         ) : listCategory && !loading ? (
           <DataReactTable reactTableData={reactTableData} />
         ) : (
-          <p>Loading...</p>
+          <ReactLoading type={"bubbles"} color={"black"} />
         )}
       </Row>
     </Container>

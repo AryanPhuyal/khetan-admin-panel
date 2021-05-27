@@ -1,6 +1,5 @@
-import { listOrderUrl } from "../../utility/api";
+import { listOrderUrl, orderDescriptionApi } from "../../utility/api";
 import { authGet } from "../../utility/request";
-import { FETCH_PRODUCT_START } from "./product";
 
 export const FETCH_ORDER_SATRT = "FETCH_ORDER_SATRT";
 export const FETCH_ORDER_SUCCESS = "FETCH_ORDER_SUCCESS";
@@ -38,4 +37,8 @@ export const fetchOrder = (token) => async (dispatch) => {
   } catch (err) {
     dispatch(fethcOrderFail(err.toString()));
   }
+};
+
+export const orderDetails = (token, orderId) => {
+  return authGet(orderDescriptionApi(orderId), token);
 };

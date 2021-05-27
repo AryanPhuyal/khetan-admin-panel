@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Card, CardBody, Col } from "reactstrap";
 import ReactTableBase from "../../shared/tables/ReactTableBase";
+import ReactTableCustomizer from "./reactTableCustomizer";
 
 const reorder = (rows, startIndex, endIndex) => {
   const result = Array.from(rows);
@@ -16,39 +17,39 @@ const DataReactTable = ({ reactTableData }) => {
   const [isEditable, setIsEditable] = useState(false);
   const [isResizable, setIsResizable] = useState(false);
   const [isSortable, setIsSortable] = useState(false);
-  // const [isDisabledDragAndDrop, setIsDisabledDragAndDrop] = useState(false);
-  // const [isDisabledEditable, setIsDisabledEditable] = useState(false);
-  // const [isDisabledResizable, setIsDisabledResizable] = useState(false);
+  const [isDisabledDragAndDrop, setIsDisabledDragAndDrop] = useState(false);
+  const [isDisabledEditable, setIsDisabledEditable] = useState(false);
+  const [isDisabledResizable, setIsDisabledResizable] = useState(false);
   const [withDragAndDrop, setWithDragAndDrop] = useState(false);
   const [withPagination, setWithPaginationTable] = useState(false);
   const [withSearchEngine, setWithSearchEngine] = useState(true);
 
-  // const handleClickIsEditable = () => {
-  //   if (!withDragAndDrop) setIsDisabledResizable(!isDisabledResizable);
-  //   setIsResizable(false);
-  //   setIsEditable(!isEditable);
-  // };
-  // const handleClickIsResizable = () => {
-  //   setIsEditable(false);
-  //   setWithDragAndDrop(false);
-  //   setIsDisabledDragAndDrop(!isDisabledDragAndDrop);
-  //   setIsDisabledEditable(!isDisabledEditable);
-  //   setIsResizable(!isResizable);
-  // };
-  // const handleClickIsSortable = () => {
-  //   setIsSortable(!isSortable);
-  // };
-  // const handleClickWithDragAndDrop = () => {
-  //   if (!isEditable) setIsDisabledResizable(!isDisabledResizable);
-  //   setIsResizable(false);
-  //   setWithDragAndDrop(!withDragAndDrop);
-  // };
-  // const handleClickWithPagination = () => {
-  //   setWithPaginationTable(withPagination);
-  // };
-  // const handleClickWithSearchEngine = () => {
-  //   setWithSearchEngine(!withSearchEngine);
-  // };
+  const handleClickIsEditable = () => {
+    if (!withDragAndDrop) setIsDisabledResizable(!isDisabledResizable);
+    setIsResizable(false);
+    setIsEditable(!isEditable);
+  };
+  const handleClickIsResizable = () => {
+    setIsEditable(false);
+    setWithDragAndDrop(false);
+    setIsDisabledDragAndDrop(!isDisabledDragAndDrop);
+    setIsDisabledEditable(!isDisabledEditable);
+    setIsResizable(!isResizable);
+  };
+  const handleClickIsSortable = () => {
+    setIsSortable(!isSortable);
+  };
+  const handleClickWithDragAndDrop = () => {
+    if (!isEditable) setIsDisabledResizable(!isDisabledResizable);
+    setIsResizable(false);
+    setWithDragAndDrop(!withDragAndDrop);
+  };
+  const handleClickWithPagination = () => {
+    setWithPaginationTable(withPagination);
+  };
+  const handleClickWithSearchEngine = () => {
+    setWithSearchEngine(!withSearchEngine);
+  };
 
   const updateDraggableData = (result) => {
     const items = reorder(rows, result.source.index, result.destination.index);
@@ -86,14 +87,7 @@ const DataReactTable = ({ reactTableData }) => {
         <CardBody>
           <div className="react-table__wrapper">
             <div></div>
-            {/* <div className="card__title">
-              <h5 className="bold-text">data react-table</h5>
-              <h5 className="subhead">
-                Use table with&nbsp;
-                <span className="red-text">table customizer</span>
-              </h5>
-            </div> */}
-            {/* <ReactTableCustomizer
+            <ReactTableCustomizer
               handleClickIsEditable={handleClickIsEditable}
               handleClickIsResizable={handleClickIsResizable}
               handleClickIsSortable={handleClickIsSortable}
@@ -110,7 +104,7 @@ const DataReactTable = ({ reactTableData }) => {
               withPagination={withPagination}
               withSearchEngine={withSearchEngine}
               fullCustomizer
-            /> */}
+            />
           </div>
           <ReactTableBase
             key={

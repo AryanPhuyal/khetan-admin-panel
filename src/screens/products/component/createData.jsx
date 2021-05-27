@@ -151,7 +151,13 @@ const CreateTableData = () => {
         price: e.price,
         vendor: e.vendor,
         status: StatusFormatter(e.status),
-        action: [ActionFormater(() => clickAction(e._id), "ad", e.status)],
+        action: [
+          ActionFormater(
+            () => clickAction(e._id),
+            `/products/productDetail?prod_id=${e._id}`,
+            e.status
+          ),
+        ],
         discount: e.discount + "%",
         updatedAt: moment(e.updatedAt).format("DD-MM-YYYY"),
         createdAt: moment(e.createdAt).format("DD-MM-YYYY"),

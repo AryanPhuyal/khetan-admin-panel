@@ -9,9 +9,11 @@ import validate from "./validation";
 import { Button } from "reactstrap";
 import inputField from "../../../component/imput/input";
 import { login, loginSuccess } from "../../../redux/actions/profile";
-import { useDispatch } from "react-redux";
-// import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
+import { showNotification } from "../../../shared/notification/notification";
 const LogInForm = ({ handleSubmit }) => {
+  const theme = useSelector((state) => state.theme);
+
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
   const showPassword = () => {
@@ -20,7 +22,6 @@ const LogInForm = ({ handleSubmit }) => {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState();
   const dispatch = useDispatch();
-  // const cAlert = useAlert();
   const onSubmit = async (data) => {
     try {
       setloading(true);
@@ -28,13 +29,28 @@ const LogInForm = ({ handleSubmit }) => {
       if (response.data.success) {
         const user = response.data.data;
         user["token"] = response.data.token;
+        showNotification(
+          theme,
+          "ltr",
+          "Success",
+          "Successfully Logged In",
+          "success"
+        );
         dispatch(loginSuccess(user));
         setloading(false);
       } else {
+        showNotification(
+          theme,
+          "ltr",
+          "Failed",
+          response.data.message,
+          "danger"
+        );
         setloading(false);
         seterror(response.data.message);
       }
     } catch (err) {
+      showNotification(theme, "ltr", "Failed", err.toString(), "danger");
       setloading(false);
       seterror("Something went wrong");
     }

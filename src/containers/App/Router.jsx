@@ -14,13 +14,10 @@ import AddProduct from "../../screens/addProduct";
 import Users from "../../screens/users/users";
 import Enquary from "../../screens/enquary/Enquary";
 import Logout from "../../screens/logout/logout";
+import ProductPage from "../../screens/productDescripiton";
+import OrderDetails from "../../screens/ordersDetails/index.jsx";
 
-const Pages = () => (
-  <Switch>
-    {/* <Route path="/pages/one" component={ExamplePageOne} /> */}
-    {/* <Route path="/pages/two" component={ExamplePageTwo} /> */}
-  </Switch>
-);
+const Pages = () => <Switch></Switch>;
 
 const wrappedRoutes = () => (
   <div>
@@ -29,11 +26,14 @@ const wrappedRoutes = () => (
       <Route path="/" component={Pages} />
       <Route path="/products/list" component={Products} />
       <Route path="/products/add" component={AddProduct} />
+      <Route path="/products/productDetail" component={ProductPage} />
 
       <Route path="/categories/list" component={Categories} />
       <Route path="/categories/add" component={AddCategory} />
 
-      <Route path="/orders" component={Orders} />
+      <Route path="/orders" exact component={Orders} />
+      <Route path="/orders/order-details" component={OrderDetails} />
+
       <Route path="/vendors/list" component={Vendors} />
 
       <Route path="/users/list" component={Users} />

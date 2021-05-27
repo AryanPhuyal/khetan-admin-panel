@@ -37,7 +37,7 @@ const listCategorySuccess = (state, action) => {
           image: e.image,
           createdAt: e.createdAt,
           updatedAt: e.updatedAt,
-          mainCategory: data.name,
+          mainCategory: data._id,
 
           type: 2,
         });
@@ -45,8 +45,8 @@ const listCategorySuccess = (state, action) => {
           e.children.forEach((f) => {
             newCategory.push({
               _id: f._id,
-              subCategory: e.name,
-              mainCategory: data.name,
+              subCategory: e._id,
+              mainCategory: data._id,
               title: f.name,
               slug: f.slug,
               image: f.image,

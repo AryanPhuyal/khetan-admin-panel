@@ -4,6 +4,8 @@ import { authGet } from "../../utility/request";
 export const FETCH_VENDOR_START = "FETCH_VENDOR_START";
 export const FETCH_VENDOR_SUCCESS = "FETCH_VENDOR_SUCCESS";
 export const FETCH_VENDOR_FAIL = "FETCH_VENDOR_FAIL";
+export const SUSPEND_VENDOR = "SUSPEND_VENDOR";
+export const APPROVE_VENDOR = "APPROVE_VENDOR";
 
 const fetchVendorStart = () => {
   return {
@@ -36,4 +38,11 @@ export const fetchVendor = (token) => async (dispatch) => {
   } catch (err) {
     dispatch(fetchVendorFail(err));
   }
+};
+
+export const suspendVendor = (vendorId, type) => {
+  return {
+    id: vendorId,
+    type: type === 2 ? SUSPEND_VENDOR : APPROVE_VENDOR,
+  };
 };
