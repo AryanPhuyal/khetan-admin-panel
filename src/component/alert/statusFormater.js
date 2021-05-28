@@ -1,5 +1,7 @@
 const StatusFormatter = (value) =>
-  value === 1 ? (
+  value === 0 ? (
+    <span className="badge badge-secondary">Pending</span>
+  ) : value === 1 ? (
     <span className="badge badge-secondary">Pending</span>
   ) : value === 2 ? (
     <span className="badge badge-success">Approved</span>

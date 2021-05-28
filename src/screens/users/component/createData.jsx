@@ -78,7 +78,16 @@ const CreateTableData = () => {
 
   const PhotoFormatter = (value) => (
     <div className="products-list__img-wrap">
-      <img height="70px" width="50px" src={baseUrl + "/" + value} alt="" />
+      <img
+        style={{
+          fill: "cover",
+          height: "55px",
+          width: "55px",
+          borderRadius: "50%",
+        }}
+        src={value}
+        alt=""
+      />
     </div>
   );
 
@@ -90,7 +99,13 @@ const CreateTableData = () => {
       data.push({
         id,
         firstname: e.profileDetails.firstname,
-        image: PhotoFormatter(e.profileDetails.profilePicture),
+        image: PhotoFormatter(
+          e.profileDetails.profilePicture
+            ? baseUrl + "/" + e.profileDetails.profilePicture
+            : e.profileDetails.profilePictureExternal === null
+            ? "https://www.pngitem.com/pimgs/m/272-2720656_user-profile-dummy-hd-png-download.png"
+            : e.profileDetails.profilePictureExternal
+        ),
         lastname: e.profileDetails.lastname,
         phone: e.profileDetails.phone,
         address: e.profileDetails.address,

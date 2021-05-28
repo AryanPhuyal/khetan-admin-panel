@@ -21,7 +21,7 @@ const LogIn = () => {
             <h4 className="account__subhead subhead">Login to admin Panels</h4>
           </div>
           <LogInForm />
-          <div className="account__or">
+          {/* <div className="account__or">
             <p>Or Easily Using</p>
           </div>
           <div className="account__social">
@@ -32,12 +32,12 @@ const LogIn = () => {
               <FacebookIcon />
             </Link>
             <Link
-              className="account__social-btn account__social-btn--google"
+              className="account__social-btn acco unt__social-btn--google"
               to=""
             >
               <GooglePlusIcon />
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

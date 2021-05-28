@@ -115,12 +115,12 @@ const LogInForm = ({ handleSubmit }) => {
         {!loading ? "Sign In" : "Loading..."}
       </Button>
 
-      <Link
+      {/* <Link
         className="btn btn-outline-primary account__btn account__btn--small"
         to="/log_in"
       >
         Create Account
-      </Link>
+      </Link> */}
     </form>
   );
 };
