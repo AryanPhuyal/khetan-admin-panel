@@ -16,6 +16,7 @@ import Enquary from "../../screens/enquary/Enquary";
 import Logout from "../../screens/logout/logout";
 import ProductPage from "../../screens/productDescripiton";
 import OrderDetails from "../../screens/ordersDetails/index.jsx";
+import VendorsDetails from "../../screens/vendorDetails/vendor";
 
 const Pages = () => <Switch></Switch>;
 
@@ -35,6 +36,7 @@ const wrappedRoutes = () => (
       <Route path="/orders/order-details" component={OrderDetails} />
 
       <Route path="/vendors/list" component={Vendors} />
+      <Route path="/vendors/vendor-details" component={VendorsDetails} />
 
       <Route path="/users/list" component={Users} />
       <Route path="/enquary/list" component={Enquary} />

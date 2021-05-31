@@ -20,3 +20,11 @@ export const authPost = (api, data, token) => {
     },
   });
 };
+
+export const authPut = (api, data, token) => {
+  return axios.put(api, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

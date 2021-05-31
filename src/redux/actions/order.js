@@ -1,9 +1,18 @@
-import { listOrderUrl, orderDescriptionApi } from "../../utility/api";
-import { authGet } from "../../utility/request";
+import {
+  cancilOrderApi,
+  completeOrderApi,
+  declineOrderApi,
+  listOrderUrl,
+  orderDescriptionApi,
+  refundOrderApi,
+  shipOrderApi,
+} from "../../utility/api";
+import { authGet, authPost, authPut } from "../../utility/request";
 
 export const FETCH_ORDER_SATRT = "FETCH_ORDER_SATRT";
 export const FETCH_ORDER_SUCCESS = "FETCH_ORDER_SUCCESS";
 export const FETCH_ORDER_FAIL = "FETCH_ORDER_FAIL";
+export const CHANGE_ORDER_STATUS = "CHANGE_ORDER_STATUS";
 
 const fetchOrderStart = () => {
   return {
@@ -41,4 +50,32 @@ export const fetchOrder = (token) => async (dispatch) => {
 
 export const orderDetails = (token, orderId) => {
   return authGet(orderDescriptionApi(orderId), token);
+};
+export const changeOrderStatus = (orderId, status) => {
+  return {
+    type: CHANGE_ORDER_STATUS,
+    payload: {
+      orderId,
+      status,
+    },
+  };
+};
+
+export const orderConfirm = (token, orderId) => {
+  return authPut(orderConfirm(orderId), {}, token);
+};
+export const cancilOrder = (token, orderId) => {
+  return authPut(cancilOrderApi(orderId), {}, token);
+};
+export const declineOrder = (token, orderId) => {
+  return authPut(declineOrderApi(orderId), {}, token);
+};
+export const shipOrder = (token, orderId) => {
+  return authPut(shipOrderApi(orderId), {}, token);
+};
+export const refundOrder = (token, orderId) => {
+  return authPut(refundOrderApi(orderId), {}, token);
+};
+export const completeOrder = (token, orderId) => {
+  return authPut(completeOrderApi(orderId), {}, token);
 };

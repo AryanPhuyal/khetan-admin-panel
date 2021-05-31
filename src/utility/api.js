@@ -25,3 +25,17 @@ export const orderDescriptionApi = (orderId) =>
 export const addMainCategoryApi = `${baseUrlApi}/admin/category/main/create`;
 export const addSubCategoryApi = `${baseUrlApi}/admin/category/sub/create`;
 export const addChildCategoryApi = `${baseUrlApi}/admin/category/child/create`;
+
+// orders worrk
+export const cancilOrderApi = (orderId) =>
+  `${baseUrlApi}/admin/order/${orderId}/cancel`;
+export const declineOrderApi = (orderId) =>
+  `${baseUrlApi}/admin/order/${orderId}/decline`;
+export const shipOrderApi = (orderId) =>
+  `${baseUrlApi}/admin/order/${orderId}/ship`;
+export const completeOrderApi = (orderId) =>
+  `${baseUrlApi}/admin/order/${orderId}/complete`;
+export const refundOrderApi = (orderId) =>
+  `${baseUrlApi}/admin/order/${orderId}/refund`;
+export const vendorDetailsApi = (vendorId) =>
+  `${baseUrlApi}/admin/vendor/${vendorId}/detail`;

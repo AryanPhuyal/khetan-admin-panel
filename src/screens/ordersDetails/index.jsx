@@ -1,7 +1,7 @@
 import moment from "moment";
 import qs from "qs";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
   Col,
@@ -10,8 +10,16 @@ import {
   CardHeader,
   CardBody,
   Table,
+  Button,
 } from "reactstrap";
-import { orderDetails } from "../../redux/actions/order";
+import {
+  cancilOrder,
+  completeOrder,
+  declineOrder,
+  orderDetails,
+  refundOrder,
+  shipOrder,
+} from "../../redux/actions/order";
 import { baseUrl } from "../../utility/api";
 
 const OrderDetails = ({ location }) => {
@@ -25,8 +33,45 @@ const OrderDetails = ({ location }) => {
     error: null,
   });
   const id = qs.parse(location.search.substring(1)).order_id;
+  const [orderStatusConf, setorderStatusConf] = useState({
+    loading: false,
+    success: false,
+    error: null,
+    status: null,
+    buttons: [
+      {
+        title: "Declined",
+        status: 2,
+        showOn: [0, 3],
+        class: "btn-danger",
+      },
+      {
+        title: "Shipped",
+        status: 3,
+        showOn: [4, 0],
+        class: "btn-primary",
+      },
+      {
+        title: "Completed",
+        status: 4,
+        showOn: [3],
+        class: "btn-success",
+      },
+      {
+        title: "Refund",
+        status: 5,
+        showOn: [3, 4],
+        class: "btn-warning",
+      },
+    ],
+  });
 
-  // api call
+  const changeOrderStatus = (status) => {
+    const currentStatus = { ...config };
+    currentStatus.order.status = status;
+    return currentStatus;
+  };
+  const dispatch = useDispatch(); // api call
   useEffect(async () => {
     setConfig({
       ...config,
@@ -56,6 +101,63 @@ const OrderDetails = ({ location }) => {
       });
     }
   }, []);
+
+  const changeOrder = async (status) => {
+    console.log(status);
+    var response;
+    try {
+      setorderStatusConf({
+        status,
+        ...orderStatusConf,
+        loading: true,
+        status: status,
+      });
+      switch (status) {
+        case 1:
+          response = await cancilOrder(token, id);
+          setConfig(changeOrder(1));
+          dispatch(changeOrderStatus(id, 1));
+          return;
+        case 2:
+          response = await declineOrder(token, id);
+          dispatch(changeOrder(id, 2));
+          setConfig(changeOrderStatus(2));
+
+          return;
+        case 3:
+          console.log("Ship Order");
+          response = await shipOrder(token, id);
+          dispatch(changeOrder(id, 3));
+          setConfig(changeOrderStatus(3));
+
+          return;
+        case 4:
+          console.log("Here");
+          response = await completeOrder(token, id);
+          dispatch(changeOrder(id, 4));
+          setConfig(changeOrderStatus(4));
+
+        case 5:
+          response = await refundOrder(token, id);
+          dispatch(changeOrder);
+          setConfig(changeOrderStatus(5));
+      }
+      setorderStatusConf({
+        ...orderStatusConf,
+        success: true,
+        status: null,
+        loading: false,
+      });
+    } catch (err) {
+      setorderStatusConf({
+        ...orderStatusConf,
+        success: false,
+        status: null,
+        error: err.toString(),
+        loading: false,
+      });
+    }
+  };
   return (
     <Container>
       <Col>
@@ -66,6 +168,25 @@ const OrderDetails = ({ location }) => {
         ) : (
           config.order && (
             <>
+              {orderStatusConf.buttons.map((e) => {
+                if (e.showOn.includes(config.order.status)) {
+                  return (
+                    <Button
+                      onClick={() => changeOrder(e.status)}
+                      disabled={
+                        e.status === orderStatusConf.status &&
+                        orderStatusConf.loading
+                      }
+                      className={e.class + " text-light"}
+                    >
+                      {e.status == orderStatusConf.status &&
+                      orderStatusConf.loading
+                        ? "Loading"
+                        : e.title}
+                    </Button>
+                  );
+                }
+              })}
               <Row>
                 <Card>
                   <CardHeader>

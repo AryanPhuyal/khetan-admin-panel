@@ -30,11 +30,8 @@ const CreateTableData = () => {
       if (response.data.success) {
         dispatch(approveProduct(produId, 1));
       } else {
-        dispatch(approveProduct(produId, 2));
       }
-    } catch (err) {
-      dispatch(approveProduct(produId, 2));
-    }
+    } catch (err) {}
   };
   const suspend = async (produId) => {
     setactionChange({
@@ -44,6 +41,7 @@ const CreateTableData = () => {
     try {
       const response = await authGet(suspendProductApi(produId), token);
       if (response.data.success) {
+        dispatch(approveProduct(produId, 2));
       } else {
       }
     } catch (err) {}

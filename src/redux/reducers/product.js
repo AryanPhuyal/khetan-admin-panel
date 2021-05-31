@@ -16,14 +16,21 @@ const init = {
 
 const approveProduct = (state, action) => {
   const newProducts = [...state.products];
+
   const newProduct = newProducts.find((e) => e._id === action.payload);
-  if (action.type === SUSPEND_PRODUCT) {
-    alert("Here");
-    newProduct.status = 2;
-  } else {
-    newProduct.status = 3;
+  let changedProduct;
+  if (!newProduct) {
+    return state;
   }
-  return updateObject(state, { products: newProducts });
+
+  if (action.type === SUSPEND_PRODUCT) {
+    changedProduct = { ...newProduct, status: 3 };
+  } else {
+    changedProduct = { ...newProduct, status: 2 };
+    // newProduct.status = 1;
+  }
+
+  return updateObject(state, { products: [...newProducts, changedProduct] });
 };
 
 const reducer = (state = init, action) => {

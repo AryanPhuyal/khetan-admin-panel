@@ -103,7 +103,7 @@ const CreateTableData = () => {
         action: [
           ActionFormater(
             () => clickAction(e._id),
-            `/vendors?vendorId=${e._id}`,
+            `/vendors/vendor-details?vendorId=${e._id}`,
             e.accountStatus
           ),
         ],

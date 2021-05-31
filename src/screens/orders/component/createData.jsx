@@ -26,11 +26,11 @@ const CreateTableData = () => {
         Header: "Address",
         accessor: "address",
       },
-      { Header: "Postal Code", accessor: "postalcode" },
+      // { Header: "Postal Code", accessor: "postalcode" },
       { Header: "Total Items", accessor: "totalItems" },
       { Header: "Total Quantity", accessor: "totalQuantity" },
       { Header: "Total Cost", accessor: "totalCost" },
-      { Header: "User", accessor: "user" },
+      // { Header: "User", accessor: "user" },
       { Header: "Order Date", accessor: "orderDate" },
       {
         Header: "Action",
@@ -44,19 +44,19 @@ const CreateTableData = () => {
   );
 
   const data = [];
-  let id = 0;
+  let id = 1;
   const rows = () => {
     orders.forEach((e) => {
       data.push({
         id: id,
-        postalcode: e.shippingAddress.postalCode.toString(),
+        // postalcode: e.shippingAddress.postalCode.toString(),
         email: e.shippingAddress.email,
         address: e.shippingAddress.address,
         totalItems: e.totalProducts.toString(),
         name: e.shippingAddress.name,
         totalQuantity: e.totalQuantity.toString(),
         totalCost: e.totalCost.toString(),
-        user: e.user,
+        // user: e.user,
         orderDate: moment(e.orderedData).format("DD-MM-YYYY"),
         action: (
           <Link

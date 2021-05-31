@@ -23,7 +23,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <AlertProvider template={alert}>
-        <BrowserRouter>
+        <BrowserRouter basename="/admin">
           <ScrollToTop>
             <Fragment>
               {!isLoaded && (

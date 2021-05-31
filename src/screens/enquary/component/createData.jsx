@@ -80,15 +80,16 @@ const CreateTableData = () => {
         accessor: "product",
         disableGlobalFilter: true,
       },
-      {
-        Header: "Product Description",
-        accessor: "productDescription",
-        disableGlobalFilter: true,
-      },
+      // {
+      //   Header: "Product Description",
+      //   accessor: "productDescription",
+      //   disableGlobalFilter: true,
+      // },
       {
         Header: "Enquary",
         accessor: "enquiry",
-        width: 50,
+        disableGlobalFilter: true,
+        // width: 50,
       },
       {
         Header: "Image",
@@ -100,12 +101,6 @@ const CreateTableData = () => {
         Header: "CreatedAt",
         accessor: "createdAt",
         disableGlobalFilter: true,
-      },
-      {
-        Header: "UpdatedAt",
-        accessor: "updatedAt",
-        disableGlobalFilter: true,
-        disableSortBy: true,
       },
     ],
     []
@@ -128,10 +123,10 @@ const CreateTableData = () => {
         lastname: e.lastname,
         email: e.email,
         contact: e.contact,
-        product: e.productDescription,
-        enquiry: e.enquiry,
+        product: e.enquiry,
+        enquiry: e.productDescription,
         image: PhotoFormatter(e.imageLink),
-        updatedAt: moment(e.updatedAt).format("DD-MM-YYYY"),
+        // updatedAt: moment(e.updatedAt).format("DD-MM-YYYY"),
         createdAt: moment(e.createdAt).format("DD-MM-YYYY"),
       });
       id++;
