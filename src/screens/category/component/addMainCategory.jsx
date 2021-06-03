@@ -38,7 +38,7 @@ const AddMainCategoryForm = ({ handleSubmit, reset }) => {
         const response = await addMainCategory(token, data.name, result);
         console.log(response.data);
         if (response.data.success) {
-          dispatch(addCategorySuccess(response.data.data));
+          dispatch(addCategorySuccess(response.data.created));
           setconfig({
             loading: false,
             error: false,
@@ -80,7 +80,12 @@ const AddMainCategoryForm = ({ handleSubmit, reset }) => {
         <div className="form__form-group">
           <span className="form__form-group-label">Category Name</span>
           <div className="form__form-group-field">
-            <Field name="name" component={inputField} type="text" />
+            <Field
+              name="name"
+              className="form-control"
+              component={inputField}
+              type="text"
+            />
           </div>
         </div>
         <Col md={12}>

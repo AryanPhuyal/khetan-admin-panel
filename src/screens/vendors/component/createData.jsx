@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import ActionFormater from "../../../component/alert/actionFormaterProduct";
@@ -6,6 +5,7 @@ import StatusFormatter from "../../../component/alert/statusFormater";
 import { suspendVendor } from "../../../redux/actions/vendors";
 import { authGet } from "../../../utility/request";
 import { approveVendorApi, suspendVendorApi } from "../../../utility/api";
+import { useState } from "react";
 
 const CreateTableData = () => {
   const dispatch = useDispatch();
@@ -34,89 +34,66 @@ const CreateTableData = () => {
   };
 
   const { vendors } = useSelector((state) => state.vendor);
+  const [vendorList, setvendorList] = useState(vendors);
+
   const clickAction = (vendorId) => {
-    const vendor = vendors.find((e) => e._id === vendorId);
+    const newVendor = [...vendors];
+    const vendor = vendorList.find((e) => e._id === vendorId);
+    const vendorIndex = newVendor.indexOf(vendor);
     if (vendor.accountStatus === 2) {
       suspend(vendorId);
+      vendor.accountStatus = 3;
+      newVendor[vendorIndex] = vendor;
+      setvendorList([...newVendor]);
     } else {
       unSuspend(vendorId);
+      vendor.accountStatus = 2;
+      newVendor[vendorIndex] = vendor;
+      setvendorList([...newVendor]);
     }
   };
-
-  // const NumberFormater = (value) => <span>{value}</span>;
-  const columns = useMemo(
-    () => [
-      {
-        Header: "#",
-        accessor: "id",
-        disableGlobalFilter: true,
-        width: 65,
-      },
-      {
-        Header: "name",
-        accessor: "name",
-      },
-      {
-        Header: "email",
-        accessor: "email",
-      },
-      {
-        Header: "phone",
-        accessor: "phone",
-      },
-
-      {
-        Header: "Address",
-        accessor: "address",
-      },
-      { Header: "product count", accessor: "productCount" },
-      {
-        Header: "Status",
-        accessor: "status",
-        formatter: StatusFormatter,
-        disableGlobalFilter: true,
-        disableSortBy: true,
-      },
-      {
-        Header: "Action",
-        accessor: "action",
-        disableGlobalFilter: true,
-        disableSortBy: true,
-        width: 110,
-      },
-      { Header: "Created At", accessor: "createdAt" },
-    ],
-    []
-  );
-
-  const data = [];
   let id = 0;
-  const rows = () => {
-    vendors.forEach((e) => {
-      data.push({
-        id: id,
-        email: e.email,
-        address: e.profileDetails.address,
-        name: e.profileDetails.name,
-        phone: e.profileDetails.phone,
-        status: StatusFormatter(e.accountStatus),
-        action: [
-          ActionFormater(
-            () => clickAction(e._id),
-            `/vendors/vendor-details?vendorId=${e._id}`,
-            e.accountStatus
-          ),
-        ],
-        productCount: e.products.length.toString(),
-        createdAt: moment(e.createdAt).format("DD-MM-YYYY"),
-      });
-      id++;
-    });
-  };
 
-  rows();
-  const reactTableData = { tableHeaderData: columns, tableRowsData: data };
-  return reactTableData;
+  return (
+    <table className="table table-striped">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Product Count</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {vendorList.map((e) => {
+          id++;
+
+          return (
+            <tr>
+              <td>{id}</td>
+              <td>{e.name}</td>
+              <td>{e.email}</td>
+              <td>{e.profileDetails.phone}</td>
+              <td>{e.profileDetails.address}</td>
+              <td>{e.products.length.toString()}</td>
+              <td>{StatusFormatter(e.accountStatus)}</td>
+              <td>
+                {ActionFormater(
+                  () => clickAction(e._id),
+                  `/vendors/vendor-details?vendorId=${e._id}`,
+                  e.accountStatus
+                )}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
 };
 
 export default CreateTableData;

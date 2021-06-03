@@ -40,9 +40,14 @@ export const fetchVendor = (token) => async (dispatch) => {
   }
 };
 
-export const suspendVendor = (vendorId, type) => {
-  return {
-    id: vendorId,
+const dispatchSuspendVendor = (vendorId,type)=>{
+ return {
     type: type === 2 ? SUSPEND_VENDOR : APPROVE_VENDOR,
+    id: vendorId,
   };
+} 
+
+export const suspendVendor = (vendorId, type) => dispatch => {
+  dispatch(dispatchSuspendVendor(vendorId,type));
+ 
 };

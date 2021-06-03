@@ -1,7 +1,9 @@
+import { Hidden } from "@material-ui/core";
 import moment from "moment";
 import qs from "qs";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Pdf from "react-to-pdf";
 import {
   Container,
   Col,
@@ -103,7 +105,6 @@ const OrderDetails = ({ location }) => {
   }, []);
 
   const changeOrder = async (status) => {
-    console.log(status);
     var response;
     try {
       setorderStatusConf({
@@ -158,6 +159,12 @@ const OrderDetails = ({ location }) => {
       });
     }
   };
+  const ref = React.createRef();
+  const options = {
+    orientation: "landscape",
+    unit: "in",
+    format: [9, 11],
+  };
   return (
     <Container>
       <Col>
@@ -187,124 +194,142 @@ const OrderDetails = ({ location }) => {
                   );
                 }
               })}
-              <Row>
-                <Card>
-                  <CardHeader>
-                    <h3>Order Details</h3>
-                  </CardHeader>
-                  <CardBody>
-                    <p>
-                      Order Number:&nbsp;&nbsp;&nbsp;
-                      <b>{config.order.orderId}</b>
-                    </p>
-                    <p>
-                      Order Status:&nbsp;&nbsp;
-                      <b>{config.order.status}</b>
-                    </p>
-                    <p>
-                      Order Date:&nbsp;&nbsp;
-                      <b>
-                        {moment(config.order.orderedDate).format(
-                          "DD-MM-YYYY  HH:MM"
-                        )}
-                      </b>
-                    </p>
-                  </CardBody>
-                </Card>
-              </Row>
-              <Row>
-                <Card>
-                  <CardHeader>
-                    <h3>Shipping Details</h3>
-                  </CardHeader>
-                  <CardBody>
-                    <Col sm={5} lg={5} md={5}>
-                      Name:&nbsp;&nbsp;&nbsp;{" "}
-                      <b>{config.order.shippingAddress.name}</b>
-                      <br />
-                      Email:&nbsp;&nbsp;&nbsp;{" "}
-                      <b>{config.order.shippingAddress.email}</b>
-                      <br />
-                      Phone:&nbsp;&nbsp;&nbsp;{" "}
-                      <b>{config.order.shippingAddress.phone}</b>
-                      <br />
-                    </Col>
-                    <Col sm={5} lg={5} md={5}>
-                      Addres:&nbsp;&nbsp;&nbsp;{" "}
-                      <b>{config.order.shippingAddress.address}</b>
-                      <br />
-                      Country:&nbsp;&nbsp;&nbsp;{" "}
-                      <b>{config.order.shippingAddress.country}</b>
-                      <br />
-                      PostalCode:&nbsp;&nbsp;&nbsp;
-                      <b>{config.order.shippingAddress.postalCode}</b>
-                      <br />
-                    </Col>
-                  </CardBody>
-                </Card>
-              </Row>
+              <Pdf
+                targetRef={ref}
+                filename={`${config.order._id}.pdf`}
+                options={options}
+              >
+                {({ toPdf }) => (
+                  <Button
+                    className="btn-primary text-light"
+                    onClick={toPdf}
+                    className="text-light btn-success"
+                  >
+                    {" "}
+                    Download Bill
+                  </Button>
+                )}
+              </Pdf>
+              <div ref={ref}>
+                <Row>
+                  <Card>
+                    <CardHeader>
+                      <h3>Order Details</h3>
+                    </CardHeader>
+                    <CardBody>
+                      <p>
+                        Order Number:&nbsp;&nbsp;&nbsp;
+                        <b>{config.order.orderId}</b>
+                      </p>
+                      <p>
+                        Order Status:&nbsp;&nbsp;
+                        <b>{config.order.status}</b>
+                      </p>
+                      <p>
+                        Order Date:&nbsp;&nbsp;
+                        <b>
+                          {moment(config.order.orderedDate).format(
+                            "DD-MM-YYYY  HH:MM"
+                          )}
+                        </b>
+                      </p>
+                    </CardBody>
+                  </Card>
+                </Row>
+                <Row>
+                  <Card>
+                    <CardHeader>
+                      <h3>Shipping Details</h3>
+                    </CardHeader>
+                    <CardBody>
+                      <Col sm={5} lg={5} md={5}>
+                        Name:&nbsp;&nbsp;&nbsp;{" "}
+                        <b>{config.order.shippingAddress.name}</b>
+                        <br />
+                        Email:&nbsp;&nbsp;&nbsp;{" "}
+                        <b>{config.order.shippingAddress.email}</b>
+                        <br />
+                        Phone:&nbsp;&nbsp;&nbsp;{" "}
+                        <b>{config.order.shippingAddress.phone}</b>
+                        <br />
+                      </Col>
+                      <Col sm={5} lg={5} md={5}>
+                        Addres:&nbsp;&nbsp;&nbsp;{" "}
+                        <b>{config.order.shippingAddress.address}</b>
+                        <br />
+                        Country:&nbsp;&nbsp;&nbsp;{" "}
+                        <b>{config.order.shippingAddress.country}</b>
+                        <br />
+                        PostalCode:&nbsp;&nbsp;&nbsp;
+                        <b>{config.order.shippingAddress.postalCode}</b>
+                        <br />
+                      </Col>
+                    </CardBody>
+                  </Card>
+                </Row>
 
-              <Row>
-                <Card>
-                  <CardHeader>
-                    <h3>Product Details</h3>
-                  </CardHeader>
-                  <CardBody>
-                    <Table>
-                      <thead>
-                        <th>Product Image</th>
-                        <th>Name</th>
-                        <th>Quantity</th>
-                        <th>Unit Cost</th>
-                        <th>Total Cost</th>
-                      </thead>
-                      <tbody>
-                        {config.order.products.map((e) => (
+                <Row>
+                  <Card>
+                    <CardHeader>
+                      <h3>Product Details</h3>
+                    </CardHeader>
+                    <CardBody>
+                      <Table>
+                        <thead>
+                          <th>Product Image</th>
+                          <th>Name</th>
+                          <th>Quantity</th>
+                          <th>Unit Cost</th>
+                          <th>Total Cost</th>
+                        </thead>
+                        <tbody>
+                          {config.order.products.map((e) => (
+                            <tr>
+                              <td>
+                                <img
+                                  src={baseUrl + "/" + e.product.image}
+                                  style={{
+                                    objectFit: "cover",
+                                    height: "100px",
+                                    width: "100px",
+                                  }}
+                                />
+                              </td>
+                              <td>{e.product.name}</td>
+                              <td>{e.quantity}</td>
+                              <td>{e.unitCost}</td>
+                              <td>{e.totalCost}</td>
+                            </tr>
+                          ))}
+                          <hr
+                            style={{
+                              width: "100%",
+                            }}
+                          ></hr>
                           <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total Product</td>
                             <td>
-                              <img
-                                src={baseUrl + "/" + e.product.image}
-                                style={{
-                                  objectFit: "cover",
-                                  height: "100px",
-                                  width: "100px",
-                                }}
-                              />
+                              <b> {config.order.totalQuantity}</b>
                             </td>
-                            <td>{e.product.name}</td>
-                            <td>{e.quantity}</td>
-                            <td>{e.unitCost}</td>
-                            <td>{e.totalCost}</td>
                           </tr>
-                        ))}
-                        <hr
-                          style={{
-                            width: "100%",
-                          }}
-                        ></hr>
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>Total Product</td>
-                          <td>
-                            <b> {config.order.totalQuantity}</b>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>Total Cost</td>
-                          <td>
-                            <b>Rs {config.order.totalCost}</b>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </CardBody>
-                </Card>
-              </Row>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total Cost</td>
+                            <td>
+                              <b>Rs {config.order.totalCost}</b>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </CardBody>
+                  </Card>
+                </Row>
+              </div>
             </>
           )
         )}

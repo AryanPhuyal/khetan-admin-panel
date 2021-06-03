@@ -11,20 +11,23 @@ import ActionFormater from "../../../component/alert/actionFormaterProduct";
 import { authGet } from "../../../utility/request";
 import { approveProduct } from "../../../redux/actions/product";
 
-const CreateTableData = () => {
+const PhotoFormatter = (value) => (
+  <div className="products-list__img-wrap">
+    <img height="70px" width="50px" src={baseUrl + "/" + value} alt="" />
+  </div>
+);
+const CreateTableData = ({ data }) => {
   const dispatch = useDispatch();
-  const [actionChange, setactionChange] = useState({});
-
-  const { products } = useSelector((state) => state.product);
+  const [actionChange, setactionChange] = useState({
+    loading: false,
+    prodId: null,
+    products: data,
+  });
   const {
     user: { token },
   } = useSelector((state) => state.user);
 
   const unSuspend = async (produId) => {
-    setactionChange({
-      loading: true,
-      prodId: produId,
-    });
     try {
       const response = await authGet(approveProductApi(produId), token);
       if (response.data.success) {
@@ -34,10 +37,6 @@ const CreateTableData = () => {
     } catch (err) {}
   };
   const suspend = async (produId) => {
-    setactionChange({
-      loading: true,
-      prodId: produId,
-    });
     try {
       const response = await authGet(suspendProductApi(produId), token);
       if (response.data.success) {
@@ -48,125 +47,73 @@ const CreateTableData = () => {
   };
 
   const clickAction = (produId) => {
-    const product = products.find((e) => e._id === produId);
+    setactionChange({
+      ...actionChange,
+      loading: true,
+      prodId: produId,
+    });
+    const newProduct = actionChange.products;
+    const product = newProduct.find((e) => e._id === produId);
+
     if (product.status === 2) {
+      product.status = 3;
+      setactionChange({
+        ...actionChange,
+        products: newProduct,
+      });
       suspend(produId);
     } else {
+      product.status = 2;
       unSuspend(produId);
     }
-  };
 
-  const columns = useMemo(
-    () => [
-      {
-        Header: "#",
-        accessor: "id",
-        disableGlobalFilter: true,
-        width: 65,
-      },
-      {
-        Header: "Image",
-        accessor: "image",
-        disableGlobalFilter: true,
-        disableSortBy: true,
-      },
-      {
-        Header: "Name",
-        accessor: "name",
-      },
-      {
-        Header: "Sku",
-        accessor: "sku",
-        disableGlobalFilter: true,
-      },
-      {
-        Header: "Stock",
-        accessor: "stock",
-        disableGlobalFilter: true,
-        width: 70,
-      },
-      {
-        Header: "Price",
-        accessor: "price",
-        disableGlobalFilter: true,
-      },
-      {
-        Header: "Vendor",
-        accessor: "vendor",
-        disableGlobalFilter: true,
-      },
-      {
-        Header: "Discount",
-        accessor: "discount",
-        width: 50,
-      },
-      {
-        Header: "Status",
-        accessor: "status",
-        formatter: StatusFormatter,
-        disableGlobalFilter: true,
-        disableSortBy: true,
-      },
-      {
-        Header: "Action",
-        accessor: "action",
-        disableGlobalFilter: true,
-        disableSortBy: true,
-        width: 110,
-      },
-      {
-        Header: "CreatedAt",
-        accessor: "createdAt",
-        disableGlobalFilter: true,
-      },
-      {
-        Header: "UpdatedAt",
-        accessor: "updatedAt",
-        disableGlobalFilter: true,
-        disableSortBy: true,
-      },
-    ],
-    []
-  );
-
-  const PhotoFormatter = (value) => (
-    <div className="products-list__img-wrap">
-      <img height="70px" width="50px" src={baseUrl + "/" + value} alt="" />
-    </div>
-  );
-
-  // const getImage = (img, alt) => <img src={`${baseUrl}${img}`} alt={alt} />;
-  let id = 0;
-  const data = [];
-  const rows = () => {
-    products.forEach((e) => {
-      data.push({
-        id,
-        name: e.name,
-        image: PhotoFormatter(e.gallery[0]),
-        sku: e.sku,
-        stock: e.stock,
-        price: e.price,
-        vendor: e.vendor,
-        status: StatusFormatter(e.status),
-        action: [
-          ActionFormater(
-            () => clickAction(e._id),
-            `/products/productDetail?prod_id=${e._id}`,
-            e.status
-          ),
-        ],
-        discount: e.discount + "%",
-        updatedAt: moment(e.updatedAt).format("DD-MM-YYYY"),
-        createdAt: moment(e.createdAt).format("DD-MM-YYYY"),
-      });
-      id++;
+    setactionChange({
+      ...actionChange,
+      loading: false,
+      prodId: null,
+      products: newProduct,
     });
   };
-
-  rows();
-  const reactTableData = { tableHeaderData: columns, tableRowsData: data };
-  return reactTableData;
+  return (
+    <table className="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Sku</th>
+          <th>Stock</th>
+          <th>Price</th>
+          <th>Discount</th>
+          <th>Status</th>
+          <th>Action</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        {actionChange.products.map((e) => (
+          <tr key={e._id}>
+            <td>{e.name}</td>
+            <td>{e.sku}</td>
+            <td>{PhotoFormatter(e.gallery[0])}</td>
+            <td>{e.stock}</td>
+            <td>{e.price}</td>
+            <td>{e.discount}</td>
+            <td>{StatusFormatter(e.status)}</td>
+            <td>
+              {actionChange.prodId === e._id
+                ? "Loading..."
+                : ActionFormater(
+                    () => clickAction(e._id),
+                    `/products/productDetail?prod_id=${e._id}`,
+                    e.status
+                  )}
+            </td>
+            <td>{moment(e.createAt).format("DD-MM-YYYY")}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 };
 
 export default CreateTableData;

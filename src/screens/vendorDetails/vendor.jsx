@@ -111,14 +111,14 @@ const VendorDetails = ({ location }) => {
                 Approved Products
               </NavLink>
             </NavItem>
-            <NavItem>
+            {/* <NavItem>
               <NavLink
                 className={classnames({ active: activeTab === "4" })}
                 onClick={() => toggle("4")}
               >
                 Orders
               </NavLink>
-            </NavItem>
+            </NavItem> */}
           </Nav>
           <TabContent activeTab={activeTab}>
             <TabPane tabId="1">
@@ -134,14 +134,14 @@ const VendorDetails = ({ location }) => {
                 data={config.vendor.products.filter((p) => p.status === 2)}
               ></CreateTableData>
             </TabPane>
-            <TabPane tabId="4">
+            {/* <TabPane tabId="4">
               <p>
                 Direction has strangers now believing. Respect enjoyed gay far
                 exposed parlors towards. Enjoyment use tolerably dependent
                 listening men. No peculiar in handsome together unlocked do by.
                 Article concern joy anxious did picture sir her.
               </p>
-            </TabPane>
+            </TabPane> */}
           </TabContent>
         </div>
       </Container>

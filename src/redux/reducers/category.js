@@ -1,4 +1,5 @@
 import {
+  ADD_CATEGORY_SUCCESS,
   LIST_CATEGORY_FAIL,
   LIST_CATEGORY_START,
   LIST_CATEGORY_SUCCESS,
@@ -63,6 +64,11 @@ const listCategorySuccess = (state, action) => {
   });
 };
 
+const addCategorySuccess = (state,action)=> {
+  console.log(action)
+  return state;
+  } 
+
 const reducer = (state = init, action) => {
   switch (action.type) {
     case LIST_CATEGORY_START:
@@ -71,6 +77,8 @@ const reducer = (state = init, action) => {
       return updateObject(state, { loading: false, error: action.payload });
     case LIST_CATEGORY_SUCCESS:
       return listCategorySuccess(state, action);
+      case ADD_CATEGORY_SUCCESS:
+        return addCategorySuccess(state,action)
     default:
       return state;
   }

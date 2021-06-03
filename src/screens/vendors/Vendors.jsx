@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "reactstrap";
-import DataReactTable from "../../component/table/tableBase";
 import CreateTableData from "./component/createData";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchVendor } from "../../redux/actions/vendors";
@@ -12,7 +11,6 @@ const Vendors = () => {
     user: { token },
   } = useSelector((state) => state.user);
   const { loading, error, listVendor } = useSelector((state) => state.vendor);
-  const reactTableData = CreateTableData();
   useEffect(() => {
     if (!listVendor) {
       dispatch(fetchVendor(token));
@@ -23,7 +21,6 @@ const Vendors = () => {
       <Row>
         <Col md={12}>
           <h3 className="page-title">Vendors</h3>
-          {/* <h3 className="page-subhead subhead"></h3> */}
         </Col>
       </Row>
       <Row>
@@ -32,7 +29,7 @@ const Vendors = () => {
         ) : error ? (
           <p>{error}</p>
         ) : (
-          <DataReactTable reactTableData={reactTableData} />
+          <CreateTableData />
         )}
       </Row>
     </Container>

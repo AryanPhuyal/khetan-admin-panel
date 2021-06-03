@@ -39,7 +39,6 @@ const ProductTable = ({ data }) => {
     } catch (err) {}
   };
   const suspend = async (produId) => {
-    alert("suspend");
     try {
       const response = await authGet(suspendProductApi(produId), token);
       if (response.data.success) {
