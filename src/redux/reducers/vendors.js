@@ -20,8 +20,6 @@ const suspendVendor = (state, action) => {
   if (changedVendor) {
     changedVendor = { ...changedVendor, status: 3 };
   }
-  console.log('Here')
-  return updateObject(...state, [...vendorsLIst, changedVendor]);
 };
 
 const approveVendor = (state, action) => {
@@ -34,7 +32,6 @@ const approveVendor = (state, action) => {
 };
 
 const reducer = (state = init, action) => {
-  console.log(action);
   switch (action.type) {
     case FETCH_VENDOR_START:
       return updateObject(state, { loading: true, listVendor: true });
@@ -43,7 +40,7 @@ const reducer = (state = init, action) => {
     case FETCH_VENDOR_SUCCESS:
       return updateObject(state, { loading: false, vendors: action.payload });
     case SUSPEND_VENDOR:
-      // return suspendVendor(state, action);
+    // return suspendVendor(state, action);
     case APPROVE_VENDOR:
       return approveVendor(state, action);
     default:

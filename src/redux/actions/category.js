@@ -8,8 +8,8 @@ import { authGet, authPost } from "../../utility/request";
 export const LIST_CATEGORY_SUCCESS = "LIST_CATEGORY_SUCCESS";
 export const LIST_CATEGORY_FAIL = "LIST_CATEGORY_FAIL";
 export const LIST_CATEGORY_START = "LIST_CATEGORY_START";
-
 export const ADD_CATEGORY_SUCCESS = "ADD_CATEGORY_SUCCESS";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
 
 const fetchCategorySatrt = () => {
   return {
@@ -68,4 +68,11 @@ export const addChildCategory = (token, name, icon, parent, grandParent) => {
     { name, parent, icon, grandParent, publish: true },
     token
   );
+};
+
+export const deleteCategory = (categoryId) => {
+  return {
+    type: DELETE_CATEGORY,
+    payload: categoryId,
+  };
 };

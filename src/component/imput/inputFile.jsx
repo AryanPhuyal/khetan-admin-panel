@@ -7,7 +7,6 @@ const InputFile = ({
   type,
   meta: { touched, error },
 }) => {
-  console.log(input);
   return (
     <div className="form-group">
       <input
@@ -17,7 +16,6 @@ const InputFile = ({
 
           //   convert files to an array
           //   const files = [...e.target.files];
-          console.log(e.target.files);
           value = e.target.files;
         }}
       />

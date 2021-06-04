@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Button, Col, Container, Row } from "reactstrap";
-import DataReactTable from "../../component/table/tableBase";
 import CreateTableData from "./component/createData";
 import { useSelector, useDispatch } from "react-redux";
 import { addSubCategory, fetchCategory } from "../../redux/actions/category";
@@ -20,7 +19,9 @@ const Categories = () => {
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCategory(token));
+    if (!listCategory) {
+      dispatch(fetchCategory(token));
+    }
   }, [dispatch, token]);
   return (
     <Container>
@@ -53,7 +54,7 @@ const Categories = () => {
       <Row>
         {error ? (
           <p>{error}</p>
-        ) : listCategory && !loading ? (
+        ) : !error && listCategory && !loading ? (
           <CreateTableData />
         ) : (
           // <DataReactTable reactTableData={reactTableData} />

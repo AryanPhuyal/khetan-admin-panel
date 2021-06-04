@@ -74,10 +74,12 @@ const CreateTableData = ({ data }) => {
       products: newProduct,
     });
   };
+  let id = 1;
   return (
     <table className="table table-striped">
       <thead>
         <tr>
+          <th>Id</th>
           <th>Name</th>
           <th>Image</th>
           <th>Sku</th>
@@ -90,27 +92,30 @@ const CreateTableData = ({ data }) => {
         </tr>
       </thead>
       <tbody>
-        {actionChange.products.map((e) => (
-          <tr key={e._id}>
-            <td>{e.name}</td>
-            <td>{e.sku}</td>
-            <td>{PhotoFormatter(e.gallery[0])}</td>
-            <td>{e.stock}</td>
-            <td>{e.price}</td>
-            <td>{e.discount}</td>
-            <td>{StatusFormatter(e.status)}</td>
-            <td>
-              {actionChange.prodId === e._id
-                ? "Loading..."
-                : ActionFormater(
-                    () => clickAction(e._id),
-                    `/products/productDetail?prod_id=${e._id}`,
-                    e.status
-                  )}
-            </td>
-            <td>{moment(e.createAt).format("DD-MM-YYYY")}</td>
-          </tr>
-        ))}
+        {actionChange.products.map((e) => {
+          return (
+            <tr key={e._id}>
+              <td>{id}</td>
+              <td style={{ textAlign: "start" }}>{e.name}</td>
+              <td>{PhotoFormatter(e.gallery[0])}</td>
+              <td>{e.sku}</td>
+              <td>{e.stock}</td>
+              <td>{e.price}</td>
+              <td>{e.discount}</td>
+              <td>{StatusFormatter(e.status)}</td>
+              <td>
+                {actionChange.prodId === e._id
+                  ? "Loading..."
+                  : ActionFormater(
+                      () => clickAction(e._id),
+                      `/products/productDetail?prod_id=${e._id}`,
+                      e.status
+                    )}
+              </td>
+              <td>{moment(e.createAt).format("DD-MM-YYYY")}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

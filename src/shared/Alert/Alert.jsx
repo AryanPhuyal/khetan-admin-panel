@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Alert, Button } from 'reactstrap';
-import InformationOutlineIcon from 'mdi-react/InformationOutlineIcon';
-import ThumbUpOutlineIcon from 'mdi-react/ThumbUpOutlineIcon';
-import CommentAlertOutlineIcon from 'mdi-react/CommentAlertOutlineIcon';
-import CloseCircleOutlineIcon from 'mdi-react/CloseCircleOutlineIcon';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { Alert, Button } from "reactstrap";
+import InformationOutlineIcon from "mdi-react/InformationOutlineIcon";
+import ThumbUpOutlineIcon from "mdi-react/ThumbUpOutlineIcon";
+import CommentAlertOutlineIcon from "mdi-react/CommentAlertOutlineIcon";
+import CloseCircleOutlineIcon from "mdi-react/CloseCircleOutlineIcon";
 
-const AlertComponent = ({
-  color, className, icon, children,
-}) => {
+const AlertComponent = ({ color, className, icon, children }) => {
   const [visible, setVisible] = useState(true);
 
   const onShow = () => {
@@ -22,20 +20,19 @@ const AlertComponent = ({
   let Icon;
 
   switch (color) {
-    case 'info':
+    case "info":
       Icon = <InformationOutlineIcon />;
       break;
-    case 'success':
+    case "success":
       Icon = <ThumbUpOutlineIcon />;
       break;
-    case 'warning':
+    case "warning":
       Icon = <CommentAlertOutlineIcon />;
       break;
-    case 'danger':
+    case "danger":
       Icon = <CloseCircleOutlineIcon />;
       break;
     default:
-      console.log('Wrong color!');
       break;
   }
 
@@ -64,7 +61,7 @@ AlertComponent.propTypes = {
 };
 
 AlertComponent.defaultProps = {
-  color: '',
+  color: "",
   icon: false,
-  className: '',
+  className: "",
 };

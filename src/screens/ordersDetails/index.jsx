@@ -126,14 +126,12 @@ const OrderDetails = ({ location }) => {
 
           return;
         case 3:
-          console.log("Ship Order");
           response = await shipOrder(token, id);
           dispatch(changeOrder(id, 3));
           setConfig(changeOrderStatus(3));
 
           return;
         case 4:
-          console.log("Here");
           response = await completeOrder(token, id);
           dispatch(changeOrder(id, 4));
           setConfig(changeOrderStatus(4));

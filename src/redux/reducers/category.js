@@ -1,5 +1,6 @@
 import {
   ADD_CATEGORY_SUCCESS,
+  DELETE_CATEGORY,
   LIST_CATEGORY_FAIL,
   LIST_CATEGORY_START,
   LIST_CATEGORY_SUCCESS,
@@ -64,10 +65,9 @@ const listCategorySuccess = (state, action) => {
   });
 };
 
-const addCategorySuccess = (state,action)=> {
-  console.log(action)
+const addCategorySuccess = (state, action) => {
   return state;
-  } 
+};
 
 const reducer = (state = init, action) => {
   switch (action.type) {
@@ -77,8 +77,13 @@ const reducer = (state = init, action) => {
       return updateObject(state, { loading: false, error: action.payload });
     case LIST_CATEGORY_SUCCESS:
       return listCategorySuccess(state, action);
-      case ADD_CATEGORY_SUCCESS:
-        return addCategorySuccess(state,action)
+    case ADD_CATEGORY_SUCCESS:
+      return addCategorySuccess(state, action);
+    case DELETE_CATEGORY:
+      const newCategory = [...state.categories];
+      newCategory.filter((e) => e._id !== action.payload);
+      return updateObject(...state, { categories: [...newCategory] });
+
     default:
       return state;
   }

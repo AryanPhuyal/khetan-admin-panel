@@ -66,7 +66,6 @@ const AddChildCategory = ({ handleSubmit, reset }) => {
           );
         }
       } catch (err) {
-        console.log(err);
         setconfig({
           loading: false,
           error: err.toString(),

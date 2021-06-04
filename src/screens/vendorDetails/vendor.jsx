@@ -43,7 +43,6 @@ const VendorDetails = ({ location }) => {
     });
     try {
       const response = await authGet(vendorDetailsApi(id), token);
-      console.log(response.data.data);
       if (response.data.success) {
         setconfig({
           ...config,

@@ -28,3 +28,11 @@ export const authPut = (api, data, token) => {
     },
   });
 };
+
+export const authDelete = (api, token) => {
+  return axios.delete(api, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

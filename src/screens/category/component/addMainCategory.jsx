@@ -36,7 +36,6 @@ const AddMainCategoryForm = ({ handleSubmit, reset }) => {
       setconfig({ ...config, loading: true });
       try {
         const response = await addMainCategory(token, data.name, result);
-        console.log(response.data);
         if (response.data.success) {
           dispatch(addCategorySuccess(response.data.created));
           setconfig({
@@ -65,7 +64,6 @@ const AddMainCategoryForm = ({ handleSubmit, reset }) => {
           );
         }
       } catch (err) {
-        console.log(err);
         setconfig({
           loading: false,
           error: err.toString(),
