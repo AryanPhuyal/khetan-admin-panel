@@ -130,6 +130,8 @@ const AddChildCategory = ({ handleSubmit, reset }) => {
                 className="form-control form-control-lg"
                 component="select"
               >
+                <option value={null}>Select Sub Category</option>
+
                 {subCategory.map((e) => (
                   <option key={e._id} value={e._id}>
                     {e.title}

@@ -13,7 +13,9 @@ import { deleteCategory } from "../../../redux/actions/category";
 
 const CreateTableData = () => {
   const dispatch = useDispatch();
-  const { categories, error } = useSelector((state) => state.category);
+  const { categories, error, subCategories, childCategories } = useSelector(
+    (state) => state.category
+  );
   const {
     user: { token },
   } = useSelector((state) => state.user);
@@ -29,7 +31,7 @@ const CreateTableData = () => {
     loading: false,
     error: null,
     success: null,
-    categories: [...categories],
+    categories: [...categories, ...subCategories, ...childCategories],
   });
 
   const deleteMain = async (categoryId) => {
@@ -94,8 +96,8 @@ const CreateTableData = () => {
           <th>id</th>
           <th>title</th>
           <th>slug</th>
-          <th>category</th>
-          <th>sub category</th>
+          <th>Parent Category</th>
+          <th>Grand Parent Category</th>
           <th>Created At</th>
           <th>Updated At</th>
           <th>Action</th>
@@ -111,30 +113,19 @@ const CreateTableData = () => {
               <td>{id}</td>
               <td>
                 {/* {e.title} */}
-                {e.type === 1
-                  ? e.title
-                  : e.type == 2
-                  ? config.categories.find((f) => f.mainCategory === e._id) &&
-                    config.categories.find((f) => f.mainCategory === e._id)
-                      .title
-                  : e.title}
+                {e.title}
               </td>
               <td>{e.slug}</td>
+
               <td>
-                {e.type === 1
-                  ? "____"
-                  : e.type == 2
-                  ? config.categories.find((f) => f.mainCategory === e._id) &&
-                    config.categories.find((f) => f.mainCategory === e._id)
-                      .title
-                  : e.title}
+                {e.mainCategory
+                  ? config.categories.find((x) => x._id == e.mainCategory)
+                  : "______"}
               </td>
               <td>
-                {e.type === 1 || e.type === 2
-                  ? "_____"
-                  : config.categories.find((f) => f.subCategories === e._id) &&
-                    config.categories.find((f) => f.subCategories === e._id)
-                      .title}
+                {e.subCategories
+                  ? config.subCategories.find((x) => x.id === e.subCategories)
+                  : "______"}
               </td>
               <td>{moment(e.createdAt).format("DD-MM-YYYY")}</td>
               <td>{moment(e.updatedAt).format("DD-MM-YYYY")}</td>

@@ -13,6 +13,8 @@ const init = {
   listCategory: false,
   error: null,
   categories: [],
+  subCategories: [],
+  childCategories: [],
 };
 // category ---1
 //     childcategory ----2
@@ -20,6 +22,8 @@ const init = {
 
 const listCategorySuccess = (state, action) => {
   let newCategory = [];
+  let newSubCategory = [];
+  let newChildCategory = [];
   action.payload.forEach((data) => {
     newCategory.push({
       _id: data._id,
@@ -32,7 +36,7 @@ const listCategorySuccess = (state, action) => {
     });
     if (data.children)
       data.children.forEach((e) => {
-        newCategory.push({
+        newSubCategory.push({
           _id: e._id,
           title: e.name,
           slug: e.slug,
@@ -40,12 +44,11 @@ const listCategorySuccess = (state, action) => {
           createdAt: e.createdAt,
           updatedAt: e.updatedAt,
           mainCategory: data._id,
-
           type: 2,
         });
         if (e.children)
           e.children.forEach((f) => {
-            newCategory.push({
+            newChildCategory.push({
               _id: f._id,
               subCategory: e._id,
               mainCategory: data._id,
@@ -61,6 +64,8 @@ const listCategorySuccess = (state, action) => {
   });
   return updateObject(state, {
     categories: newCategory,
+    subCategories: newSubCategory,
+    childCategories: newChildCategory,
     loading: false,
   });
 };
