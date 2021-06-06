@@ -86,8 +86,20 @@ const reducer = (state = init, action) => {
       return addCategorySuccess(state, action);
     case DELETE_CATEGORY:
       const newCategory = [...state.categories];
+      const newChildCagegory = [...state.childCategories];
+      const subCategory = [...state.subCategories];
+
+      newChildCagegory.filter((e) => e._id !== action.payload);
       newCategory.filter((e) => e._id !== action.payload);
-      return updateObject(...state, { categories: [...newCategory] });
+
+      subCategory.filter((e) => e._id !== action.payload);
+
+      return updateObject(state, {
+        categories: newCategory,
+        subCategory: subCategory,
+        childCategories: newChildCagegory,
+      });
+      return state;
 
     default:
       return state;

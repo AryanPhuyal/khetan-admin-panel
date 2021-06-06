@@ -13,7 +13,7 @@ import {
 
 const AddChildCategory = ({ handleSubmit, reset }) => {
   const [category, setcategory] = useState(null);
-  const { categories } = useSelector((state) => state.category);
+  const { categories, subCategories } = useSelector((state) => state.category);
   const mainCategory = categories.filter((x) => x.type === 1);
   const [subCategory, setsubCategory] = useState([]);
 
@@ -100,8 +100,8 @@ const AddChildCategory = ({ handleSubmit, reset }) => {
                 onChange={(e) => {
                   // e.preventDefault();
                   setsubCategory([
-                    ...categories.filter(
-                      (x) => x.type === 2 && x.mainCategory === category
+                    ...subCategories.filter(
+                      (x) => x.mainCategory === e.target.value
                     ),
                   ]);
                   setcategory(e.target.value);

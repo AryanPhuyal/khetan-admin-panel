@@ -41,6 +41,7 @@ export const fetchCategory = (token) => async (dispatch) => {
       dispatch(fetchCategoryFail(response.data.message));
     }
   } catch (err) {
+    console.log(err);
     dispatch(fetchCategoryFail("Something went wrong"));
   }
 };

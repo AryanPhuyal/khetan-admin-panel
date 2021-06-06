@@ -87,8 +87,6 @@ const CreateTableData = () => {
     return <div>{error}</div>;
   }
 
-  // console.log(config.categories);
-
   return (
     <table className="table table-striped">
       <thead>
@@ -105,7 +103,6 @@ const CreateTableData = () => {
       </thead>
       <tbody>
         {config.categories.map((e) => {
-          console.log(e);
           id++;
 
           return (
@@ -116,17 +113,17 @@ const CreateTableData = () => {
                 {e.title}
               </td>
               <td>{e.slug}</td>
+              <td>
+                {e.type !== 1
+                  ? categories.find((c) => c._id === e.mainCategory).title
+                  : "____"}
+              </td>
+              <td>
+                {e.type !== 1 && e.type !== 2
+                  ? subCategories.find((c) => c._id === e.subCategory).title
+                  : "____"}
+              </td>
 
-              <td>
-                {e.mainCategory
-                  ? config.categories.find((x) => x._id == e.mainCategory)
-                  : "______"}
-              </td>
-              <td>
-                {e.subCategories
-                  ? config.subCategories.find((x) => x.id === e.subCategories)
-                  : "______"}
-              </td>
               <td>{moment(e.createdAt).format("DD-MM-YYYY")}</td>
               <td>{moment(e.updatedAt).format("DD-MM-YYYY")}</td>
               <td>
