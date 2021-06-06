@@ -52,6 +52,10 @@ const Product = () => {
             <Nav tabs>
               <NavItem>
                 <NavLink
+                  style={{
+                    fontSize: "1.2rem",
+                    color: activeTab === "1" ? "blue" : "black",
+                  }}
                   className={classnames({ active: activeTab === "1" })}
                   onClick={() => toggle("1")}
                 >
@@ -60,20 +64,31 @@ const Product = () => {
               </NavItem>
               <NavItem>
                 <NavLink
-                  className={classnames({ active: activeTab === "2" })}
-                  onClick={() => toggle("2")}
-                >
-                  Suspended Products
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
+                  style={{
+                    fontSize: "1.2rem",
+                    backgroundColor: activeTab === "3" ? "white" : "green",
+                    color: activeTab === "3" ? "blue" : "white",
+                  }}
                   className={classnames({ active: activeTab === "3" })}
                   onClick={() => toggle("3")}
                 >
                   Approved Products
                 </NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink
+                  style={{
+                    fontSize: "1.2rem",
+                    backgroundColor: activeTab === "2" ? "white" : "red",
+                    color: activeTab === "2" ? "blue" : "white",
+                  }}
+                  className={classnames({ active: activeTab === "2" })}
+                  onClick={() => toggle("2")}
+                >
+                  Suspended Products
+                </NavLink>
+              </NavItem>
+
               {/* <NavItem>
               <NavLink
                 className={classnames({ active: activeTab === "4" })}

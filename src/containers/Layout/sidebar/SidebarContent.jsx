@@ -11,54 +11,54 @@ const SidebarContent = ({ onClick, changeToDark, changeToLight }) => {
   return (
     <div className="sidebar__content">
       <SidebarLink title="Dashboard" route="/" onClick={handleHideSidebar} />
-      <SidebarCategory title="Category" icon="category">
-        <SidebarLink
-          title="List Categories"
-          route="/categories/list"
-          onClick={handleHideSidebar}
-        />
-        <SidebarLink
+      {/* <SidebarCategory title="Category" icon="category"> */}
+      <SidebarLink
+        title="Categories"
+        route="/categories/list"
+        onClick={handleHideSidebar}
+      />
+      {/* <SidebarLink
           title="Add Category"
           route="/categories/add"
           onClick={handleHideSidebar}
-        />
-      </SidebarCategory>
+        /> */}
+      {/* </SidebarCategory> */}
 
-      <SidebarCategory title="Product" icon="product">
-        <SidebarLink
-          title="List product"
-          route="/products/list"
-          onClick={handleHideSidebar}
-        />
-        <SidebarLink
-          title="Add Product"
-          route="/products/add"
-          onClick={handleHideSidebar}
-        />
-      </SidebarCategory>
-      <SidebarLink title="Orders" route="/orders" onClick={handleHideSidebar} />
-      <ul className="sidebar__block">
-        <SidebarCategory title="Vendor" icon="product">
-          <SidebarLink
-            title="List Vendor"
-            route="/vendors/list"
-            onClick={handleHideSidebar}
-          />
-          {/* <SidebarLink
+      {/* <SidebarCategory title="Product" icon="product"> */}
+      <SidebarLink
+        title="Products"
+        route="/products/list"
+        onClick={handleHideSidebar}
+      />
+      {/* <SidebarLink
           title="Add Product"
           route="/products/add"
           onClick={handleHideSidebar}
         /> */}
-        </SidebarCategory>
+      {/* </SidebarCategory> */}
+      <SidebarLink title="Orders" route="/orders" onClick={handleHideSidebar} />
+      <ul className="sidebar__block">
+        {/* <SidebarCategory title="Vendor" icon="product"> */}
+        <SidebarLink
+          title="List Vendor"
+          route="/vendors/list"
+          onClick={handleHideSidebar}
+        />
+        {/* <SidebarLink
+          title="Add Product"
+          route="/products/add"
+          onClick={handleHideSidebar}
+        /> */}
+        {/* </SidebarCategory> */}
 
         <SidebarLink
-          title="User List"
+          title="Users"
           icon="user"
           route="/users/list"
           onClick={handleHideSidebar}
         />
         <SidebarLink
-          title="Enquary List"
+          title="Enquarys"
           icon="exit"
           route="/enquary/list"
           onClick={handleHideSidebar}

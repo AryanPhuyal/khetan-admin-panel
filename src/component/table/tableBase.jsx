@@ -87,7 +87,7 @@ const DataReactTable = ({ reactTableData }) => {
         <CardBody>
           <div className="react-table__wrapper">
             <div></div>
-            <ReactTableCustomizer
+            {/* <ReactTableCustomizer
               handleClickIsEditable={handleClickIsEditable}
               handleClickIsResizable={handleClickIsResizable}
               handleClickIsSortable={handleClickIsSortable}
@@ -104,7 +104,7 @@ const DataReactTable = ({ reactTableData }) => {
               withPagination={withPagination}
               withSearchEngine={withSearchEngine}
               fullCustomizer
-            />
+            /> */}
           </div>
           <ReactTableBase
             key={

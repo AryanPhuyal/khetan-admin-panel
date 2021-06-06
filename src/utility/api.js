@@ -39,7 +39,6 @@ export const refundOrderApi = (orderId) =>
   `${baseUrlApi}/admin/order/${orderId}/refund`;
 export const vendorDetailsApi = (vendorId) =>
   `${baseUrlApi}/admin/vendor/${vendorId}/detail`;
-
 export const deleteMainCategoryApi = (categoryId) =>
   `${baseUrlApi}/admin/category/main/${categoryId}/remove`;
 export const deleteSubCategoryApi = (categoryId) =>
