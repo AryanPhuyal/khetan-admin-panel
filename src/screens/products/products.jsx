@@ -89,14 +89,20 @@ const Product = () => {
                 </NavLink>
               </NavItem>
 
-              {/* <NavItem>
-              <NavLink
-                className={classnames({ active: activeTab === "4" })}
-                onClick={() => toggle("4")}
+              <NavItem
+                style={{
+                  fontSize: "1.2rem",
+                  backgroundColor: activeTab === "4" ? "white" : "blue",
+                  color: activeTab === "4" ? "blue" : "white",
+                }}
               >
-                Orders
-              </NavLink>
-            </NavItem> */}
+                <NavLink
+                  className={classnames({ active: activeTab === "4" })}
+                  onClick={() => toggle("4")}
+                >
+                  Pending product
+                </NavLink>
+              </NavItem>
             </Nav>
             <TabContent activeTab={activeTab}>
               <TabPane tabId="1">
@@ -110,6 +116,12 @@ const Product = () => {
               <TabPane tabId="3">
                 <CreateTableData
                   data={products.filter((p) => p.status === 2)}
+                ></CreateTableData>
+              </TabPane>
+
+              <TabPane tabId="4">
+                <CreateTableData
+                  data={products.filter((p) => p.status === 0)}
                 ></CreateTableData>
               </TabPane>
               {/* <TabPane tabId="4">
