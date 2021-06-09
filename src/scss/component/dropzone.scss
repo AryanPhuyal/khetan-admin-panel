@@ -3,6 +3,7 @@
   display: flex;
   position: relative;
   cursor: pointer;
+  height: 356px !important;
 
   @include themify($themes) {
     border: 1px solid themed("colorFieldsBorder");

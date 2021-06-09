@@ -8,6 +8,7 @@ import orderReducer from "./order";
 import vendorReducer from "./vendors";
 import usersReducer from "./users";
 import enquaryReducer from "./enquary";
+import advertismentReducer from "./siteSetting";
 
 export {
   themeReducer,
@@ -20,4 +21,5 @@ export {
   vendorReducer,
   usersReducer,
   enquaryReducer,
+  advertismentReducer,
 };

@@ -1,6 +1,6 @@
-import { combineReducers, createStore, applyMiddleware, compose } from "redux";
+import {combineReducers, createStore, applyMiddleware, compose} from "redux";
 import thunk from "redux-thunk";
-import { reducer as reduxFormReducer } from "redux-form";
+import {reducer as reduxFormReducer} from "redux-form";
 import {
   sidebarReducer,
   themeReducer,
@@ -12,6 +12,7 @@ import {
   vendorReducer,
   usersReducer,
   enquaryReducer,
+  advertismentReducer,
 } from "../../redux/reducers/index";
 const reducer = combineReducers({
   form: reduxFormReducer, // mounted under "form",
@@ -25,6 +26,7 @@ const reducer = combineReducers({
   vendor: vendorReducer,
   users: usersReducer,
   enquary: enquaryReducer,
+  advertisment: advertismentReducer,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
