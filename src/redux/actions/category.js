@@ -4,7 +4,7 @@ import {
   addSubCategoryApi,
   categoriesUrl,
 } from "../../utility/api";
-import { authGet, authPost } from "../../utility/request";
+import {authGet, authPost} from "../../utility/request";
 export const LIST_CATEGORY_SUCCESS = "LIST_CATEGORY_SUCCESS";
 export const LIST_CATEGORY_FAIL = "LIST_CATEGORY_FAIL";
 export const LIST_CATEGORY_START = "LIST_CATEGORY_START";
@@ -41,7 +41,6 @@ export const fetchCategory = (token) => async (dispatch) => {
       dispatch(fetchCategoryFail(response.data.message));
     }
   } catch (err) {
-    console.log(err);
     dispatch(fetchCategoryFail("Something went wrong"));
   }
 };
@@ -54,19 +53,19 @@ export const addCategorySuccess = (data) => {
 };
 
 export const addMainCategory = (token, name, icon) => {
-  return authPost(addMainCategoryApi, { name, icon, publish: true }, token);
+  return authPost(addMainCategoryApi, {name, icon, publish: true}, token);
 };
 export const addSubCategory = (token, name, icon, parent) => {
   return authPost(
     addSubCategoryApi,
-    { name, parent, icon, publish: true },
+    {name, parent, icon, publish: true},
     token
   );
 };
 export const addChildCategory = (token, name, icon, parent, grandParent) => {
   return authPost(
     addChildCategoryApi,
-    { name, parent, icon, grandParent, publish: true },
+    {name, parent, icon, grandParent, publish: true},
     token
   );
 };

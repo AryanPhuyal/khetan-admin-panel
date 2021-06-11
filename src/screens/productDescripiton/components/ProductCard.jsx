@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Card, CardBody, Col, ButtonToolbar } from "reactstrap";
-
-// import images from './imgs';
+import React, {useState} from "react";
+import {Card, CardBody, Col} from "reactstrap";
+import ProductGallery from "./ProductGallery";
 import ProductTabs from "./ProductTabs";
+import ColorSelect from "./ColorSelect";
+import {baseUrl} from "../../../utility/api";
 
-const ProductCard = () => {
+const ProductCard = (item) => {
   const [color, setColor] = useState("white");
-
   const onLike = () => {
     if (color === "white") {
       setColor("#70bbfd");
@@ -14,40 +14,65 @@ const ProductCard = () => {
       setColor("white");
     }
   };
+  const imggallery = [];
+  item.items.gallery.map((gallimg) => {
+    imggallery.push({
+      src: baseUrl + "/" + gallimg,
+    });
+  });
+  let price2 = 0;
+  // const Tags  = () => {
+  let nessItems = "No tags assigned";
+  if (item.items.tags) {
+    const tagg = item.items.tags;
+    const tarr = tagg.split(",");
+    //   // tarr.map(tarr2 => {
 
+    //   // })
+    nessItems = tarr.map((item) => (
+      <badge class="badge badge-primary badge-md" style={{marginLeft: ".5rem"}}>
+        {item}
+      </badge>
+    ));
+  }
+  {
+    item.items.discount > 0
+      ? (price2 =
+          item.items.price - (item.items.price * item.items.discount) / 100)
+      : (price2 = item.items.price);
+  }
+  // }
   return (
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
           <div className="product-card">
-            {/* <ProductGallery images={images} /> */}
+            <ProductGallery images={imggallery} />
             <div className="product-card__info">
-              {/* <h3 className="product-card__title">French bulldog pillow</h3>
-              <div className="product-card__rate">
-               <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarOutlineIcon /> 
-                <a
-                  className="product-card__link"
-                  href="/easydev/e-commerce/product_page"
-                >
-                  See all reviews
-                </a>
-              </div> */}
+              <h3 className="product-card__title">{item.items.name}</h3>
+              <h5>{item.items.shortname}</h5>
+
               <h1 className="product-card__price">
-                $17.19 <span className="product-card__old-price">$23</span>
+                Rs.{price2}{" "}
+                <span className="product-card__old-price">
+                  Rs.{item.items.price}
+                </span>
               </h1>
               <p className="typography-message">
-                Knowledge nay estimable questions repulsive daughters boy.
-                Solicitude gay way unaffected expression for. His mistress
-                ladyship required off horrible disposed rejoiced. Unpleasing
-                pianoforte unreserved as oh he unpleasant no inquietude
-                insipidity. Advantages can discretion possession add favourable
-                cultivated admiration far.
+                <b>SKU: </b>
+                {item.items.sku !== null ? item.items.sku : "No SKU data"}
               </p>
-              {/* <form className="form product-card__form">
+              <p>
+                <b>Tags: </b> {nessItems}
+              </p>
+
+              <p className="typography-message">
+                <b>Stock: </b>
+                {item.items.stock !== null
+                  ? item.items.stock
+                  : "No Stock available"}
+              </p>
+              <form className="form product-card__form">
                 <div className="form__form-group">
                   <span className="form__form-group-label product-card__form-label">
                     Select Color
@@ -74,21 +99,13 @@ const ProductCard = () => {
                     />
                   </div>
                 </div>
-                <ButtonToolbar className="product-card__btn-toolbar">
-                  <Link className="btn btn-primary" to="/e-commerce/cart">
-                    Add to cart
-                  </Link>
-                  <button
-                    className="product-card__wish-btn"
-                    type="button"
-                    onClick={onLike}
-                  >
-                    <HeartIcon color={color} />
-                    Add to wishlist
-                  </button>
-                </ButtonToolbar>
-              </form> */}
-              <ProductTabs />
+              </form>
+              <ProductTabs
+                details={item.items.description}
+                delivery={item.items.paymentOption}
+                warranty={item.items.warranty}
+                refunds={item.items.return}
+              />
             </div>
           </div>
         </CardBody>

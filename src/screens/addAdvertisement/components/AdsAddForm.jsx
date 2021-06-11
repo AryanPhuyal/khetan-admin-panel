@@ -36,12 +36,10 @@ const AdsAddForm = ({handleSubmit, reset}) => {
       reader.readAsDataURL(file);
       reader.onload = () => {
         var Base64 = reader.result;
-        console.log(Base64);
+
         setFileBase64String(Base64);
       };
-      reader.onerror = (error) => {
-        // console.log("error: ", error);
-      };
+      reader.onerror = (error) => {};
     }
   };
   const {
@@ -49,12 +47,10 @@ const AdsAddForm = ({handleSubmit, reset}) => {
   } = useSelector((state) => state.user);
 
   const AdsAdd = async (data) => {
-    // console.log("what happen");
     const file = data.image[0];
     encodeFileBase64(file);
     const nd = fileBase64String.split(";base64,");
     const imagess = nd[1];
-    // console.log(data);
 
     if (!imagess == "") {
       const datas = {

@@ -45,29 +45,25 @@ export const fatchAdvertisment = (token) => async (dispatch) => {
 
     if (res.status) {
       dispatch(fatchAdvertismentSuccess(res.data));
-      // console.log(res.data);
     } else {
       dispatch(fatchAdvertismentFail(res.data.message));
     }
   } catch (err) {
-    // console.log(err, "someeroror");
     dispatch(fatchAdvertismentFail(err));
   }
 };
 
 export const addAdvertisment = (data, token) => async (dispatch) => {
   dispatch(fatchAdvertismentStart());
-  // console.log(data, "action.com");
+
   try {
     const res = await authPost(siteSettingapi, data, token);
     if (res.status) {
       dispatch(addAdvertismentSuccess(res.data));
-      // console.log(res.data);
     } else {
       dispatch(fatchAdvertismentFail(res.data.message));
     }
   } catch (err) {
-    // console.log(err, "someeroror");
     dispatch(fatchAdvertismentFail(err));
   }
 };
@@ -78,12 +74,10 @@ export const deleteAdvertisment = (token, id) => async (dispatch) => {
     const res = await authDelete(siteSettingapi + id, token);
     if (res.status) {
       dispatch(deleteAdvertismentSuccess(res.data.id));
-      // console.log(res.data);
     } else {
       dispatch(fatchAdvertismentFail(res.data.message));
     }
   } catch (err) {
-    // console.log(err, "someeroror");
     dispatch(fatchAdvertismentFail(err));
   }
 };

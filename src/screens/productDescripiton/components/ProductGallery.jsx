@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
-import { Modal } from "reactstrap";
-import Carousel from "react-carousel";
+import {Modal} from "reactstrap";
+import Carousel from "@brainhubeu/react-carousel";
 import ChevronLeftIcon from "mdi-react/ChevronLeftIcon";
 import ChevronRightIcon from "mdi-react/ChevronRightIcon";
-// import "@brainhubeu/react-carousel/lib/style.css";
+import "@brainhubeu/react-carousel/lib/style.css";
 
-const ProductGallery = ({ images }) => {
+const ProductGallery = ({images}) => {
   const [isOpenLightbox, setIsOpenLightbox] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
   const [currentImagePreview, setCurrentImagePreview] = useState(0);
@@ -43,7 +43,11 @@ const ProductGallery = ({ images }) => {
         className="product-gallery__current-img"
         onClick={() => openLightbox(currentImage)}
       >
-        <img src={images[currentImagePreview].src} alt="product-img" />
+        <img
+          src={images[currentImagePreview].src}
+          alt={images[currentImagePreview].src}
+          style={{objectFit: "contain"}}
+        />
       </button>
       <div className="product_gallery__gallery">
         {images.map((item, index) => (
@@ -53,7 +57,7 @@ const ProductGallery = ({ images }) => {
             onClick={() => changeImg(index)}
             className="product-gallery__img-preview"
           >
-            <img src={item.src} alt="product-img" />
+            <img src={item.src} alt={item.src} style={{objectFit: "contain"}} />
           </button>
         ))}
       </div>

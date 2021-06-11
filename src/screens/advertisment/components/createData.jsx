@@ -7,7 +7,7 @@ import {deleteAdvertisment} from "../../../redux/actions/siteSetting";
 const CreateTableData = () => {
   // const NumberFormater = (value) => <span>{value}</span>;
   const {ads} = useSelector((state) => state.advertisment);
-  // console.log(ads, "what is here");
+
   const ActionFormatter = (val) => [
     <Link
       to={`./product_page/${val}`}
@@ -32,13 +32,13 @@ const CreateTableData = () => {
   const {
     user: {token},
   } = useSelector((state) => state.user);
-  // console.log(ads, "some ads here to find");
+
   const deletechk = async (e, id) => {
     const r = window.confirm("Do you really want to Delete?");
     if (r === true) {
       const reqtem = ads.filter((ad) => ad._id === id);
       const slug = reqtem[0]._id;
-      // console.log(slug, "yaha chai k aaua xaha");
+
       deleteAdvertisment(slug, token);
     } else {
       alert("Cancelled");
@@ -89,7 +89,6 @@ const CreateTableData = () => {
   let id = 1;
   const rows = () => {
     ads.forEach((e) => {
-      // console.log(e.content.image, "value of e hrr");co
       data.push({
         id: id,
         image: "",

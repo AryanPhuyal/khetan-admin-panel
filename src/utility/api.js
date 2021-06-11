@@ -1,4 +1,4 @@
-export const baseUrl = "https://haatbazaar.herokuapp.com";
+export const baseUrl = "https://api.cloudpasal.com";
 export const baseUrlApi = `${baseUrl}/api/v1`;
 
 export const loginUrl = `${baseUrlApi}/admin/auth/signin`;
