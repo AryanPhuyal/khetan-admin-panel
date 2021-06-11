@@ -21,7 +21,7 @@ const Enquary = () => {
     <Container>
       <Row>
         <Col md={12}>
-          <h3 className="page-title">Inquary</h3>
+          <h3 className="page-title">Inquiry</h3>
           {/* <h3 className="page-subhead subhead"></h3> */}
         </Col>
       </Row>

@@ -64,7 +64,7 @@ const SidebarContent = ({
           onClick={handleHideSidebar}
         />
         <SidebarLink
-          title="Inquaries"
+          title="Inquiry"
           icon="exit"
           route="/enquary/list"
           onClick={handleHideSidebar}
