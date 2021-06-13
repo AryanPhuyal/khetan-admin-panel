@@ -4,7 +4,7 @@ const Input = ({
   type,
   className,
   children,
-  defaultValue,
+  // defaultValue,
   meta: {touched, error},
 }) => (
   <div className={`form__form-group-input-wrap ${className}`}>
@@ -14,7 +14,7 @@ const Input = ({
       <input
         {...input}
         placeholder={placeholder}
-        defaultValue={defaultValue}
+        // defaultValue={defaultValue}
         type={type}
       />
     </div>

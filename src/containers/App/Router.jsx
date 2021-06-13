@@ -45,8 +45,6 @@ const wrappedRoutes = () => (
       <Route path="/advertisment/list" component={Advertisment} />
       <Route path="/advertisment/add" component={AdsAdd} />
 
-      {/* <Route path="/enquary/list" component={AdsAdd} /> */}
-
       <Route path="/logout" component={Logout} />
     </div>
   </div>
