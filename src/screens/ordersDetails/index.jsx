@@ -1,9 +1,10 @@
-import { Hidden } from "@material-ui/core";
+import {Hidden} from "@material-ui/core";
 import moment from "moment";
 import qs from "qs";
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, {useEffect, useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
 import Pdf from "react-to-pdf";
+import PropTypes from "prop-types";
 import {
   Container,
   Col,
@@ -22,11 +23,11 @@ import {
   refundOrder,
   shipOrder,
 } from "../../redux/actions/order";
-import { baseUrl } from "../../utility/api";
+import {baseUrl} from "../../utility/api";
 
-const OrderDetails = ({ location }) => {
+const OrderDetails = ({location}) => {
   const {
-    user: { token },
+    user: {token},
   } = useSelector((state) => state.user);
   const [config, setConfig] = useState({
     loading: false,
@@ -69,7 +70,7 @@ const OrderDetails = ({ location }) => {
   });
 
   const changeOrderStatus = (status) => {
-    const currentStatus = { ...config };
+    const currentStatus = {...config};
     currentStatus.order.status = status;
     return currentStatus;
   };
@@ -197,13 +198,12 @@ const OrderDetails = ({ location }) => {
                 filename={`${config.order._id}.pdf`}
                 options={options}
               >
-                {({ toPdf }) => (
+                {({toPdf}) => (
                   <Button
                     className="btn-primary text-light"
                     onClick={toPdf}
                     className="text-light btn-success"
                   >
-                    {" "}
                     Download Bill
                   </Button>
                 )}
@@ -221,7 +221,13 @@ const OrderDetails = ({ location }) => {
                       </p>
                       <p>
                         Order Status:&nbsp;&nbsp;
-                        <b>{config.order.status}</b>
+                        {config.order.status === 1 ? (
+                          <b> Pending</b>
+                        ) : config.order.status === 2 ? (
+                          <b>Approved</b>
+                        ) : (
+                          <b>Suspended</b>
+                        )}
                       </p>
                       <p>
                         Order Date:&nbsp;&nbsp;

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 // import { Col, Container, Row } from "reactstrap";
 import CreateTableData from "./component/createData";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchProdut } from "../../redux/actions/product";
+import {useSelector, useDispatch} from "react-redux";
+import {fetchProdut} from "../../redux/actions/product";
 import ReactLoading from "react-loading";
 import classnames from "classnames";
 
@@ -24,9 +24,9 @@ const Product = () => {
   };
   const dispatch = useDispatch();
   const {
-    user: { token },
+    user: {token},
   } = useSelector((state) => state.user);
-  const { loading, error, listProduct, products } = useSelector(
+  const {loading, error, listProduct, products} = useSelector(
     (state) => state.product
   );
   useEffect(() => {
@@ -55,8 +55,9 @@ const Product = () => {
                   style={{
                     fontSize: "1.2rem",
                     color: activeTab === "1" ? "blue" : "black",
+                    cursor: "pointer",
                   }}
-                  className={classnames({ active: activeTab === "1" })}
+                  className={classnames({active: activeTab === "1"})}
                   onClick={() => toggle("1")}
                 >
                   Products
@@ -68,8 +69,9 @@ const Product = () => {
                     fontSize: "1.2rem",
                     backgroundColor: activeTab === "3" ? "white" : "green",
                     color: activeTab === "3" ? "blue" : "white",
+                    cursor: "pointer",
                   }}
-                  className={classnames({ active: activeTab === "3" })}
+                  className={classnames({active: activeTab === "3"})}
                   onClick={() => toggle("3")}
                 >
                   Approved Products
@@ -81,8 +83,9 @@ const Product = () => {
                     fontSize: "1.2rem",
                     backgroundColor: activeTab === "2" ? "white" : "red",
                     color: activeTab === "2" ? "blue" : "white",
+                    cursor: "pointer",
                   }}
-                  className={classnames({ active: activeTab === "2" })}
+                  className={classnames({active: activeTab === "2"})}
                   onClick={() => toggle("2")}
                 >
                   Suspended Products
@@ -94,10 +97,11 @@ const Product = () => {
                   fontSize: "1.2rem",
                   backgroundColor: activeTab === "4" ? "white" : "blue",
                   color: activeTab === "4" ? "blue" : "white",
+                  cursor: "pointer",
                 }}
               >
                 <NavLink
-                  className={classnames({ active: activeTab === "4" })}
+                  className={classnames({active: activeTab === "4"})}
                   onClick={() => toggle("4")}
                 >
                   Pending product
@@ -121,7 +125,7 @@ const Product = () => {
 
               <TabPane tabId="4">
                 <CreateTableData
-                  data={products.filter((p) => p.status === 0)}
+                  data={products.filter((p) => p.status === 1)}
                 ></CreateTableData>
               </TabPane>
               {/* <TabPane tabId="4">
