@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import DownIcon from "mdi-react/ChevronDownIcon";
-import { Collapse } from "reactstrap";
+import {Collapse} from "reactstrap";
 import TopbarMenuLink from "./TopbarMenuLink";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
+import Passwordchange from "./component/passwordchange";
 
 const Ava = `${process.env.PUBLIC_URL}/img/ava.png`;
 
 const TopbarProfile = () => {
   const {
-    user: { username },
+    user: {username},
   } = useSelector((state) => state.user);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const handleToggleCollapse = () => {
@@ -34,6 +35,8 @@ const TopbarProfile = () => {
         <div className="topbar__menu">
           {/* <TopbarMenuLink title="Page one" icon="list" path="/pages/one" /> */}
           <TopbarMenuLink title="Settings" icon="inbox" path="/pages/two" />
+          <div className="topbar__menu-divider" />
+          <Passwordchange />
           <div className="topbar__menu-divider" />
           <TopbarMenuLink title="Log Out" icon="exit" path="/logout" />
         </div>

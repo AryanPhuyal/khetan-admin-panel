@@ -7,6 +7,9 @@ export const productListUrl = `${baseUrlApi}/admin/product/list`;
 export const listOrderUrl = `${baseUrlApi}/admin/order/list`;
 export const listVendorApi = `${baseUrlApi}/admin/vendor/list`;
 export const listUsersApi = `${baseUrlApi}/admin/user/list`;
+
+export const siteSettingapi = `${baseUrlApi}/admin/site/settings`;
+
 export const suspendProductApi = (prodId) =>
   `${baseUrlApi}/admin/product/${prodId}/suspend`;
 export const approveProductApi = (prodId) =>

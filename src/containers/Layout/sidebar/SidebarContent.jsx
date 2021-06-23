@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import SidebarLink from "./SidebarLink";
 import SidebarCategory from "./SidebarCategory";
 
-const SidebarContent = ({ onClick, changeToDark, changeToLight }) => {
+const SidebarContent = ({
+  onClick,
+  changeToDark,
+  changeToLight,
+  sidebarCollapse,
+  sidebarsubCollapse,
+}) => {
   const handleHideSidebar = () => {
     onClick();
   };
@@ -58,7 +64,7 @@ const SidebarContent = ({ onClick, changeToDark, changeToLight }) => {
           onClick={handleHideSidebar}
         />
         <SidebarLink
-          title="Enquarys"
+          title="Inquiry"
           icon="exit"
           route="/enquary/list"
           onClick={handleHideSidebar}
@@ -69,6 +75,23 @@ const SidebarContent = ({ onClick, changeToDark, changeToLight }) => {
           route="/log_in"
           onClick={handleHideSidebar}
         /> */}
+        <SidebarCategory
+          title="Manage Site"
+          icon="file"
+          sidebarCollapse={sidebarCollapse}
+        >
+          <SidebarLink
+            title="Add Ads"
+            route="/advertisment/add"
+            onClick={handleHideSidebar}
+          />
+          {/* <SidebarLink title="Single Product" route="/e-commerce/product_page" onClick={hideSidebar} /> */}
+          <SidebarLink
+            title="Advertisment"
+            route="/advertisment/list"
+            onClick={handleHideSidebar}
+          />
+        </SidebarCategory>
         <SidebarCategory title="Layout" icon="layers">
           <button
             type="button"

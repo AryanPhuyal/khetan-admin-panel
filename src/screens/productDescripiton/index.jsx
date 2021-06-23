@@ -1,23 +1,39 @@
 import React from "react";
-import { Col, Container, Row } from "reactstrap";
+import {Col, Container, Row} from "reactstrap";
 import ProductCard from "./components/ProductCard";
-import qs from "qs";
+import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 
-const ProductPage = ({ location }) => {
-  const id = qs.parse(location.search.substring(1));
+export default function ProductPage({history}) {
+  const id = history.location.search.split("=")[1];
+  const {done, products, loading} = useSelector((state) => state.product);
+
+  const product = products.filter((item) => item._id === id)[0];
   return (
     <Container>
       <Row>
         <Col md={12}>
-          <h3 className="page-title">Product Details</h3>
-          <h3 className="page-subhead subhead"></h3>
+          {products
+            .filter((item) => item._id === id)
+            .map((fitem) => (
+              <h3 className="page-title">{fitem.name}</h3>
+            ))}
+          {products
+            .filter((item) => item._id === id)
+            .map((fitem) => (
+              <h3 className="page-subhead subhead">
+                Get to know detailed information about {fitem.name}
+              </h3>
+            ))}
         </Col>
       </Row>
       <Row>
-        <ProductCard />
+        {products
+          .filter((item) => item._id === id)
+          .map((fitem) => (
+            <ProductCard items={fitem} />
+          ))}
       </Row>
     </Container>
   );
-};
-
-export default ProductPage;
+}

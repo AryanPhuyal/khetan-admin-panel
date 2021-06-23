@@ -1,27 +1,30 @@
 import React, {useEffect} from "react";
 import {Col, Container, Row} from "reactstrap";
 import DataReactTable from "../../component/table/tableBase";
-import CreateTableData from "./component/createData";
+import CreateTableData from "./components/createData";
 import {useSelector, useDispatch} from "react-redux";
-import {fetchEnquaryList} from "../../redux/actions/enquary";
+import {fatchAdvertisment} from "../../redux/actions/siteSetting";
+
 import ReactLoading from "react-loading";
-const Enquary = () => {
+
+const Advertisment = () => {
+  const reactTableData = CreateTableData();
   const dispatch = useDispatch();
   const {
     user: {token},
   } = useSelector((state) => state.user);
-  const {loading, error, enquaryList} = useSelector((state) => state.enquary);
-  const reactTableData = CreateTableData();
+  const {loading, error, success} = useSelector((state) => state.advertisment);
+
   useEffect(() => {
-    if (!enquaryList) {
-      dispatch(fetchEnquaryList(token));
+    if (!success) {
+      dispatch(fatchAdvertisment(token));
     }
-  }, [dispatch, enquaryList, token]);
+  }, [dispatch, success, token]);
   return (
     <Container>
       <Row>
         <Col md={12}>
-          <h3 className="page-title">Inquiry</h3>
+          <h3 className="page-title">Advertisment</h3>
           {/* <h3 className="page-subhead subhead"></h3> */}
         </Col>
       </Row>
@@ -38,4 +41,4 @@ const Enquary = () => {
   );
 };
 
-export default Enquary;
+export default Advertisment;

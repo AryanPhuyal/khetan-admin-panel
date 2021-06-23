@@ -66,8 +66,6 @@ const Product = () => {
                 <NavLink
                   style={{
                     fontSize: "1.2rem",
-                    // backgroundColor: activeTab === "3" ? "white" : "green",
-                    // color: activeTab === "3" ? "blue" : "white",
                   }}
                   className={classnames({ active: activeTab === "3" })}
                   onClick={() => toggle("3")}
@@ -121,7 +119,7 @@ const Product = () => {
 
               <TabPane tabId="4">
                 <CreateTableData
-                  data={products.filter((p) => p.status === 0)}
+                  data={products.filter((p) => p.status === 1)}
                 ></CreateTableData>
               </TabPane>
               {/* <TabPane tabId="4">

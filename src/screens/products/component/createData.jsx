@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, {useMemo, useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
 import moment from "moment";
 import {
   approveProductApi,
@@ -8,15 +8,15 @@ import {
 } from "../../../utility/api";
 import StatusFormatter from "../../../component/alert/statusFormater";
 import ActionFormater from "../../../component/alert/actionFormaterProduct";
-import { authGet } from "../../../utility/request";
-import { approveProduct } from "../../../redux/actions/product";
+import {authGet} from "../../../utility/request";
+import {approveProduct} from "../../../redux/actions/product";
 
 const PhotoFormatter = (value) => (
   <div className="products-list__img-wrap">
     <img height="70px" width="50px" src={baseUrl + "/" + value} alt="" />
   </div>
 );
-const CreateTableData = ({ data }) => {
+const CreateTableData = ({data}) => {
   const dispatch = useDispatch();
   const [actionChange, setactionChange] = useState({
     loading: false,
@@ -24,7 +24,7 @@ const CreateTableData = ({ data }) => {
     products: data,
   });
   const {
-    user: { token },
+    user: {token},
   } = useSelector((state) => state.user);
 
   const unSuspend = async (produId) => {
@@ -96,7 +96,7 @@ const CreateTableData = ({ data }) => {
           return (
             <tr key={e._id}>
               <td>{id}</td>
-              <td style={{ textAlign: "start" }}>{e.name}</td>
+              <td style={{textAlign: "start"}}>{e.name}</td>
               <td>{PhotoFormatter(e.gallery[0])}</td>
               <td>{e.sku}</td>
               <td>{e.stock}</td>
@@ -108,7 +108,7 @@ const CreateTableData = ({ data }) => {
                   ? "Loading..."
                   : ActionFormater(
                       () => clickAction(e._id),
-                      `/products/productDetail?prod_id=${e._id}`,
+                      `/products/productDetail/?id=${e._id}`,
                       e.status
                     )}
               </td>
