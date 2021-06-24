@@ -1,4 +1,4 @@
-export const baseUrl = "http://demoprakash.nephost.net";
+export const baseUrl = "https://demoprakash.nephost.net";
 export const baseUrlApi = `${baseUrl}/api/v1`;
 
 export const loginUrl = `${baseUrlApi}/admin/auth/signin`;
